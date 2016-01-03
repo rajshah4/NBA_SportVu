@@ -87,3 +87,41 @@ travelDist <- function(xloc, yloc){
   b<-sqrt(a)
   (sum(b))  
 }
+
+player_dist <- function(lastnameA,lastnameB, eventID) {
+  df <- all.movements[which((all.movements$lastname == lastnameA | all.movements$lastname == lastnameB) & all.movements$event.id == eventID),]
+  dfA <- df %>% filter (lastname==lastnameA) %>% select (x_loc,y_loc) 
+  dfB <- df %>% filter (lastname==lastnameB) %>% select (x_loc,y_loc) 
+  df.l <- 1:nrow(dfA)
+  distsdf <- unlist(lapply(df.l,function(x) {dist(rbind(dfA[x,], dfB[x,]))}))
+  return(distsdf)
+}
+
+get_game_clock <- function(lastnameA,eventID){
+  alldf <- all.movements[which((all.movements$lastname == lastnameA) & all.movements$event.id == eventID),]
+  game_clock <- alldf$game_clock
+  return(as.data.frame(game_clock))
+}
+
+player_dist_matrix <- function(eventID) {
+  
+  players <- all.movements %>% filter(event.id==pickeventID) %>% select(lastname) %>% distinct(lastname)
+  players2 <- players
+  bigdistance <-unlist(lapply(list(players$lastname)[[1]], function(X) {
+    lapply(list(players2$lastname)[[1]], function(Y) {test=
+      player_dist(X, Y,pickeventID)
+    })
+  }), recursive=FALSE)
+  bigdistance_names <-unlist(lapply(list(players$lastname)[[1]], function(X) {
+    lapply(list(players2$lastname)[[1]], function(Y) {
+      paste(X, Y,sep = "_")
+    })
+  }), recursive=FALSE)
+  bigdistancedf <- as.matrix(do.call('cbind',bigdistance))
+  colnames(bigdistancedf) <- bigdistance_names
+  bigdistancedf <- bigdistancedf[,colSums(bigdistancedf^2) !=0]
+  bigdistancedf <- as.data.frame(bigdistancedf)
+  clockinfo <- get_game_clock("ball",eventID)
+  bigdistancedf$game_clock <- clockinfo$game_clock
+  return (bigdistancedf)
+}

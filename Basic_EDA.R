@@ -60,5 +60,54 @@ gasol <- deduped.data[which(deduped.data$lastname == "Gasol"),]
 travelDist(gasol$x_loc, gasol$y_loc)
 # 18561.93 - Seems a little high, but this was a very long game
 
+########Distance Matrix for one player with the ball for one event
+rose <- all.movements[which((all.movements$lastname == "Rose"| all.movements$lastname == "ball") & all.movements$event.id == 6),]
+testrose <- rose %>% filter (lastname=="Rose") %>% select (x_loc,y_loc) 
+testball <- rose %>% filter (lastname=="ball") %>% select (x_loc,y_loc) 
+testrosel <- 1:nrow(testrose)
+distsdf <- unlist(lapply(testrosel,function(x) {dist(rbind(testrose[x,], testball[x,]))}))
+ball_distance <- rose %>% filter (lastname=="ball") %>% select (game_clock) %>% mutate(distance=distsdf)
+plot_ly(data = ball_distance, x=game.clock, y=distsdf,mode = "markers")
 
+########Distance Matrix w/ function for one player with the ball for one event
+
+player_dist <- function(lastnameA,lastnameB, eventID) {
+  df <- all.movements[which((all.movements$lastname == lastnameA | all.movements$lastname == lastnameB) & all.movements$event.id == eventID),]
+  dfA <- df %>% filter (lastname==lastnameA) %>% select (x_loc,y_loc) 
+  dfB <- df %>% filter (lastname==lastnameB) %>% select (x_loc,y_loc) 
+  df.l <- 1:nrow(dfA)
+  distsdf <- unlist(lapply(df.l,function(x) {dist(rbind(dfA[x,], dfB[x,]))}))
+  return(distsdf)
+}
+
+temp <- player_dist("Rose","ball",6)
+plot_ly(data = ball_distance, x=game_clock, y=temp,mode = "markers")
+
+########Distance Matrix for one player with all other players for one event
+pickplayer <- "ball"
+pickeventID <- 6
+players <- all.movements %>% filter(event.id==pickeventID) %>% select(lastname) %>% distinct(lastname)
+bigdistance <- lapply(list(players$lastname)[[1]],function (x){ player_dist(pickplayer,x,pickeventID)})
+bigdistancedf <- as.data.frame(do.call('cbind',bigdistance))
+colnames(bigdistancedf) <- list(players$lastname)[[1]]
+
+#Get Clock Info
+clockinfo <- get_game_clock("Ginobili",303)
+bigdistancedf$game_clock <- clockinfo$game_clock
+head(bigdistancedf)
+
+##Plot with plotly - not elegant but works
+for(i in 1:(ncol(bigdistancedf)-1)){
+if(i==1){
+  pString<-"p <- plot_ly(data = bigdistancedf, x = game_clock, y = bigdistancedf[,1], name = colnames(bigdistancedf[1]),mode = 'markers')"
+} else {
+  pString<-paste(pString, " %>% add_trace(y =",  eval(paste("bigdistancedf[,",i,"]",sep="")),", name=", eval(paste("colnames(bigdistancedf[", i,"])",sep="")), ")", sep="")
+}
+}
+eval(parse(text=pString))
+print(p)
+
+########Distance Matrix for between all players for one eventID
+pickeventID <- 6
+players_matrix <- player_dist_matrix(pickeventID)
 

@@ -1,0 +1,171 @@
+---
+title: "EDA_NBA_SportVu"
+output: html_document
+---
+
+This is a simple walkthrough using the NBA SportVu movement data. The goal is to show how to parse a game file and do some basic EDA.  
+
+This post is inspired by the work of [Savvast Tjortjoglou](http://savvastjortjoglou.com/nba-play-by-play-movements.html) and [Tanya Cashorali](http://tcbanalytics.com/blog/nba-movement-data-R.html#.VogLV5MrKCQ). I am applying what they did to a large game file in R.
+
+***
+For the play, I choose the NBA's [top rated play on December 23rd, 2015](http://www.nba.com/video/channels/top_plays/2015/12/23/20151223-top10.nba/). It is a game between San Antonio and Minnesota and the play occurs with 6 minutes left in the third quarter.  
+
+***
+###Download the data
+Neil Johnson has taken the time to compile the movement data for game at his [github reposistory](https://github.com/neilmj/BasketballData/tree/master/2016.NBA.Raw.SportVU.Game.Logs).
+
+To get this game, you will need to download the file.
+
+```{r,eval=FALSE}
+wget https://github.com/neilmj/BasketballData/blob/master/2016.NBA.Raw.SportVU.Game.Logs/12.23.2015.SAS.at.MIN.7z?raw=true
+```
+
+Unzip this file and you should end up with a file named: **0021500431.json**
+
+***
+###Reading the data into R
+
+To read this file, first download the **_functions.R** file in [my github repository](https://github.com/rajshah4/NBA_SportVu) for this project.
+
+```{r}
+library(RCurl)
+library(jsonlite)
+library(dplyr)
+library(plotly)
+source("_functions.R")
+```
+
+The sportvu_convert_json function takes the json file and converts it into a data frame. For this game, the function takes about 3 minutes to convert the file. The resulting data frame is about 2.6 million observations by 13 variables.
+
+```{r}
+all.movements <- sportvu_convert_json("data/0021500431.json")
+str(all.movements)
+```
+
+***
+###Finding a specific play
+The specific play we are interested in has the event ID #303.
+The NBA site has both the [video](http://on.nba.com/1R7pmZF) and [movement data](http://on.nba.com/1YWXb3M) available. The movement data shows the play:  
+<iframe height=600 src="http://stats.nba.com/movement/#!/?GameID=0021500431&GameEventID=303" style="border:none;width:100%;height:100% seamless="seamless""></iframe>
+
+
+***
+###Extract movement for one player - Ginobili
+Lets take a look at the movement of one player, Ginobili for this play.
+```{r}
+##Extract all data for event ID 303
+id303 <- all.movements[which(all.movements$event.id == 303),]
+##Extract all data for Ginobili on event ID #303
+ginobili <- all.movements[which(all.movements$lastname == "Ginobili" & all.movements$event.id == 303),]
+```
+
+We can now plot the how Ginobili moves around the court. (Savvast Tjortjoglou takes the time to plot this on a basketball court background image.)
+```{r}
+p <- plot_ly(data = ginobili, x = x_loc, y = y_loc, mode = "markers", color=cut(ginobili$game_clock, breaks=3)) %>% 
+    layout(xaxis = list(range = c(0, 100)), 
+           yaxis = list(range = c(0, 50))) 
+p
+```
+
+***
+###Get distance travelled for one player
+I created a simple function to get the distance a player travels:
+```{r}
+travelDist(ginobili$x_loc, ginobili$y_loc)
+```
+
+***
+###Get speed of a player
+Building off the distance, this part calculates the speed of a player.
+
+```{r}
+seconds = max(ginobili$game_clock) - min(ginobili$game_clock)
+speed = travelDist(ginobili$x_loc, ginobili$y_loc)/seconds  #in feet per second
+speed
+```
+
+***
+###Get distance for all the players for a specific event 
+This part extends the distance measurement to all the players.
+```{r}
+player.groups <- group_by(id303, lastname)
+dist.traveled.players <- summarise(player.groups, totalDist=travelDist(x_loc, y_loc),playerid = max(player_id))
+arrange(dist.traveled.players, desc(totalDist))
+```
+
+***
+###Get distance for all the players for the entire game
+This part extends the measurement to an entire game for all the players.
+```{r}
+deduped.data <- unique( all.movements[ , 1:12 ] )  ##This takes about 30 seconds to run
+player.groups <- group_by(deduped.data, lastname)
+dist.traveled.players <- summarise(player.groups, totalDist=travelDist(x_loc,y_loc),playerid = max(player_id))
+total <- arrange(dist.traveled.players, desc(totalDist))
+total
+```
+
+***
+###Lets find the distance between a player and the ball for one event
+This code shows you how to get the distance between two parties for an event.  The example here uses Ginobili and the ball.
+
+```{r}
+ginobili <- all.movements[which((all.movements$lastname == "Ginobili"| all.movements$lastname == "ball") & all.movements$event.id == 303),]
+distgino <- ginobili %>% filter (lastname=="Ginobili") %>% select (x_loc,y_loc) 
+distball <- ginobili %>% filter (lastname=="ball") %>% select (x_loc,y_loc) 
+distlength <- 1:nrow(distgino)
+distsdf <- unlist(lapply(distlength,function(x) {dist(rbind(distgino[x,], distball[x,]))}))
+ball_distance <- ginobili %>% filter (lastname=="ball") %>% select (game_clock) %>% mutate(distance=distsdf)
+plot_ly(data = ball_distance, x=game_clock, y=distsdf,mode = "markers")
+```
+
+***
+###Lets find the distance between a player and the ball for one event
+This part uses the same logic as above, but I have created functions to make it cleaner.
+```{r}
+#Get Clock Info
+clockinfo <- get_game_clock("Ginobili",303)
+#Get Distance
+playerdistance <- player_dist("Ginobili","ball",303)
+#Plot
+plot_ly(data = clockinfo, x=game_clock, y=playerdistance,mode = "markers")
+```
+
+***
+###Lets find the distance between all players and the ball for one event
+
+```{r}
+pickplayer <- "ball"
+pickeventID <- 303
+
+#Get all the players
+players <- all.movements %>% filter(event.id==pickeventID) %>% select(lastname) %>% distinct(lastname)
+#Calculate distance
+bigdistance <- lapply(list(players$lastname)[[1]],function (x){player_dist(pickplayer,x,pickeventID)})
+bigdistancedf <- as.data.frame(do.call('cbind',bigdistance))
+colnames(bigdistancedf) <- list(players$lastname)[[1]]
+#Get Clock Info
+clockinfo <- get_game_clock(pickplayer,pickeventID)
+bigdistancedf$game_clock <- clockinfo$game_clock
+head(bigdistancedf)
+
+##Plot with plotly - not elegant but shows you one way to visualize the data
+for(i in 1:(ncol(bigdistancedf)-1)){
+if(i==1){
+  pString<-"p <- plot_ly(data = bigdistancedf, x = game_clock, y = bigdistancedf[,1], name = colnames(bigdistancedf[1]))"
+} else {
+  pString<-paste(pString, " %>% add_trace(y =",  eval(paste("bigdistancedf[,",i,"]",sep="")),", name=", eval(paste("colnames(bigdistancedf[", i,"])",sep="")), ")", sep="")
+}
+}
+eval(parse(text=pString))
+print(p)
+```
+
+***
+###Lets create a distance matrix between all the players for one eventID
+This part uses the same logic as above, but I have created a function to make this code cleaner.
+
+```{r}
+pickeventID <- 303
+players_matrix <- player_dist_matrix(pickeventID)
+```
+
