@@ -3,16 +3,16 @@ title: "EDA_NBA_SportVu"
 output: html_document
 ---
 
-This is a simple walkthrough using the NBA SportVu movement data. The goal is to show how to parse a game file and do some basic EDA.  
+This is a simple walkthrough for getting started with the NBA SportVu movement data. The goal is to show how to parse a game file and perform basic EDA.  
 
-This post is inspired by the work of [Savvast Tjortjoglou](http://savvastjortjoglou.com/nba-play-by-play-movements.html) and [Tanya Cashorali](http://tcbanalytics.com/blog/nba-movement-data-R.html#.VogLV5MrKCQ). I am applying what they did to a large game file in R.
+This post is inspired by the work of [Savvast Tjortjoglou](http://savvastjortjoglou.com/nba-play-by-play-movements.html) and [Tanya Cashorali](http://tcbanalytics.com/blog/nba-movement-data-R.html#.VogLV5MrKCQ).
 
 ***
 For the play, I choose the NBA's [top rated play on December 23rd, 2015](http://www.nba.com/video/channels/top_plays/2015/12/23/20151223-top10.nba/). It is a game between San Antonio and Minnesota and the play occurs with 6 minutes left in the third quarter.  
 
 ***
 ###Download the data
-Neil Johnson has taken the time to compile the movement data for game at his [github reposistory](https://github.com/neilmj/BasketballData/tree/master/2016.NBA.Raw.SportVU.Game.Logs).
+Neil Johnson has taken the time to compile the movement data for NBA games at his [github reposistory](https://github.com/neilmj/BasketballData/tree/master/2016.NBA.Raw.SportVU.Game.Logs).
 
 To get this game, you will need to download the file.
 
@@ -25,7 +25,7 @@ Unzip this file and you should end up with a file named: **0021500431.json**
 ***
 ###Reading the data into R
 
-To read this file, first download the **_functions.R** file in [my github repository](https://github.com/rajshah4/NBA_SportVu) for this project.
+To read this file, first download the _functions.R file in [my github repository](https://github.com/rajshah4/NBA_SportVu) for this project.
 
 ```{r}
 library(RCurl)
@@ -50,8 +50,8 @@ The NBA site has both the [video](http://on.nba.com/1R7pmZF) and [movement data]
 
 
 ***
-###Extract movement for one player - Ginobili
-Lets take a look at the movement of one player, Ginobili for this play.
+###Extract movement for one player
+The sportvu data provides movement data for every player and the ball. As an example, lets look at the movement of Ginobili for this play.
 ```{r}
 ##Extract all data for event ID 303
 id303 <- all.movements[which(all.movements$event.id == 303),]
@@ -59,7 +59,7 @@ id303 <- all.movements[which(all.movements$event.id == 303),]
 ginobili <- all.movements[which(all.movements$lastname == "Ginobili" & all.movements$event.id == 303),]
 ```
 
-We can now plot the how Ginobili moves around the court. (Savvast Tjortjoglou takes the time to plot this on a basketball court background image.)
+This data can be visualized to show how Ginobili moves around the court. The colors represent three different time ranges of movement. The y axis is the length of the court. An NBA court is 94 feet by 50 feet. (Savvast Tjortjoglou takes the time to plot this on a basketball court background image.)
 ```{r}
 p <- plot_ly(data = ginobili, x = x_loc, y = y_loc, mode = "markers", color=cut(ginobili$game_clock, breaks=3)) %>% 
     layout(xaxis = list(range = c(0, 100)), 
@@ -69,14 +69,14 @@ p
 
 ***
 ###Get distance travelled for one player
-I created a simple function to get the distance a player travels:
+I have a simple function to get the distance a player travels:
 ```{r}
 travelDist(ginobili$x_loc, ginobili$y_loc)
 ```
 
 ***
 ###Get speed of a player
-Building off the distance, this part calculates the speed of a player.
+Building off the distance, it is possible to calculate the speed of a player.
 
 ```{r}
 seconds = max(ginobili$game_clock) - min(ginobili$game_clock)
@@ -86,7 +86,7 @@ speed
 
 ***
 ###Get distance for all the players for a specific event 
-This part extends the distance measurement to all the players.
+The next step is generalizing this approach to all the players.
 ```{r}
 player.groups <- group_by(id303, lastname)
 dist.traveled.players <- summarise(player.groups, totalDist=travelDist(x_loc, y_loc),playerid = max(player_id))
@@ -95,7 +95,7 @@ arrange(dist.traveled.players, desc(totalDist))
 
 ***
 ###Get distance for all the players for the entire game
-This part extends the measurement to an entire game for all the players.
+This part extends the measurement to an entire game for all the players. For this game, the most active players went a little over 2 miles, which makes sense.
 ```{r}
 deduped.data <- unique( all.movements[ , 1:12 ] )  ##This takes about 30 seconds to run
 player.groups <- group_by(deduped.data, lastname)
@@ -105,22 +105,25 @@ total
 ```
 
 ***
-###Lets find the distance between a player and the ball for one event
-This code shows you how to get the distance between two parties for an event.  The example here uses Ginobili and the ball.
+###Get the distance between a player and the ball for one event
+A more interesting use of the data is to see how distances between people and the ball change over time. This code shows you how to get the distance between two parties for an event. The example here uses Ginobili and the ball.
 
 ```{r}
 ginobili <- all.movements[which((all.movements$lastname == "Ginobili"| all.movements$lastname == "ball") & all.movements$event.id == 303),]
+#Get distance for each player/ball
 distgino <- ginobili %>% filter (lastname=="Ginobili") %>% select (x_loc,y_loc) 
 distball <- ginobili %>% filter (lastname=="ball") %>% select (x_loc,y_loc) 
 distlength <- 1:nrow(distgino)
+#Use the R function dist for calculating distance
 distsdf <- unlist(lapply(distlength,function(x) {dist(rbind(distgino[x,], distball[x,]))}))
+#Add the game_clock
 ball_distance <- ginobili %>% filter (lastname=="ball") %>% select (game_clock) %>% mutate(distance=distsdf)
 plot_ly(data = ball_distance, x=game_clock, y=distsdf,mode = "markers")
 ```
 
 ***
-###Lets find the distance between a player and the ball for one event
-This part uses the same logic as above, but I have created functions to make it cleaner.
+###Get the distance between a player and the ball for one event (using functions)
+This part uses the same logic as above, but with functions I created to make it cleaner.
 ```{r}
 #Get Clock Info
 clockinfo <- get_game_clock("Ginobili",303)
@@ -131,8 +134,8 @@ plot_ly(data = clockinfo, x=game_clock, y=playerdistance,mode = "markers")
 ```
 
 ***
-###Lets find the distance between all players and the ball for one event
-
+### Get the distance between all players and the ball for one event
+This section generalizes the code to view the distance between all the players and the ball. The plot can be a bit messy (and does not show in Rpubs), but its an interesting way to see the interactions between players and the ball.
 ```{r}
 pickplayer <- "ball"
 pickeventID <- 303
@@ -161,11 +164,15 @@ print(p)
 ```
 
 ***
-###Lets create a distance matrix between all the players for one eventID
-This part uses the same logic as above, but I have created a function to make this code cleaner.
+###Get a distance matrix between all the players for one eventID
+The movement data also allows for the analysis of the distance between players. For example, if you are interested in the distance between LaVine and Ginobili for a certain play. This function calculates a matrix of all the distances between players and the ball.
 
 ```{r}
 pickeventID <- 303
 players_matrix <- player_dist_matrix(pickeventID)
+str(players_matrix)
 ```
 
+***
+###Credits
+I hope this has been a useful introduction to working with the NBA movement data. For more of my explorations on the NBA data you can see my [NBA Github repo](https://github.com/rajshah4/NBA_SportVu). You can find more information about me, [RajivShah](http://www.rajivshah.com) or my other [projects](http://projects.rajivshah.com) or find me on [Twitter](http://twitter.com/rajcs4).
