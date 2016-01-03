@@ -1,11 +1,11 @@
 ---
-title: "EDA_NBA_SportVu"
+title: "Exploring NBA SportVu Movement Data"
 output: html_document
 ---
 
 This is a simple walkthrough for getting started with the NBA SportVu movement data. The goal is to show how to parse a game file and perform basic EDA.  
 
-This post is inspired by the work of [Savvast Tjortjoglou](http://savvastjortjoglou.com/nba-play-by-play-movements.html) and [Tanya Cashorali](http://tcbanalytics.com/blog/nba-movement-data-R.html#.VogLV5MrKCQ).
+This post is inspired by the work of [Savvast Tjortjoglou](http://savvastjortjoglou.com/nba-play-by-play-movements.html) and [Tanya Cashorali](http://tcbanalytics.com/blog/nba-movement-data-R.html#.VogLV5MrKCQ).  I wanted to extend their work to analyzing an entire game.
 
 ***
 For the play, I choose the NBA's [top rated play on December 23rd, 2015](http://www.nba.com/video/channels/top_plays/2015/12/23/20151223-top10.nba/). It is a game between San Antonio and Minnesota and the play occurs with 6 minutes left in the third quarter.  
