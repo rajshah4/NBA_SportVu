@@ -111,3 +111,10 @@ print(p)
 pickeventID <- 6
 players_matrix <- player_dist_matrix(pickeventID)
 
+########Lets try to get the game clock in minutes/seconds
+library(lubridate)
+#Simple example
+seconds_to_period(361.27)
+#Add to main data frame
+all.movements$game_clock_minutes <- as.character(seconds_to_period(all.movements$game_clock))
+
