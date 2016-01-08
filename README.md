@@ -5,6 +5,8 @@ _functions.R - Various functions that I have written.  The functions include *sp
 
 Basic_EDA.R - My working EDA analysis file.  
 
-EDA_NBA_SportVu.Rmd - A markup document showing basic EDA on the movement data.  I published it at Rpubs, http://rpubs.com/rshah4/EDA_NBA_SportVu
+EDA_NBA_SportVu.Rmd - A markup document showing basic EDA on the movement data.  I published it at http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html
+
+PBP_NBA_SportVu.Rmd - A markup document showing how to merge play by play data with the SportVu movement data.  It is published at http://projects.rajivshah.com/sportvu/PBP_NBA_SportVu.html 
 
 
