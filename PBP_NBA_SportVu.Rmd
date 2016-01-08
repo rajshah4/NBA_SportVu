@@ -1,0 +1,137 @@
+---
+title: "Merging NBA Play by Play data with SportVU data"
+output: html_document
+---
+
+This page shows how to combine NBA play by play data with SportVu data. The play by play dramatically increases the usefulness of the SportVu data by allowing the identification of plays that are misses and makes as well as the type of shot, e.g., layup or dunk.
+I have also posted my [earlier markdown](http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html) on exploring the SportVu data.
+
+***
+###First getting the sportVU data
+
+To read the sportvu data, first download the _functions.R file in [my github repository](https://github.com/rajshah4/NBA_SportVu) for this project.
+
+```{r}
+library(RCurl)
+library(jsonlite)
+library(dplyr)
+source("_functions.R")
+```
+
+The sportvu_convert_json function takes the sportvu json file and converts it into a data frame. For this game, the function takes about 3 minutes to convert the file. The resulting data frame is about 2.6 million observations by 13 variables.
+
+```{r}
+all.movements <- sportvu_convert_json("data/0021500431.json")
+str(all.movements)
+```
+***
+###View the Play by Play data
+```{r}
+gameid = "0021500431"
+pbp <- get_pbp(gameid) #From the .functions file
+head(pbp)
+```
+***
+###Join the Play by Play data on shots to SportVu data
+Joining the data is pretty simple, because both the play by play data and SportVu use common event IDs.  The only issue I have found is the the SportVu data may contain more event IDs (such as the ball going out of bounds), that are not found in the play by play data.
+```{r}
+pbp <- pbp[-1,]
+colnames(pbp)[2] <- c('event.id')
+#Trying to limit the fields to join to keep the overall size manageable
+pbp <- pbp %>% select (event.id,EVENTMSGTYPE,EVENTMSGACTIONTYPE,SCORE)
+pbp$event.id <- as.numeric(levels(pbp$event.id))[pbp$event.id]
+all.movements <- merge(x = all.movements, y = pbp, by = "event.id", all.x = TRUE)
+```
+***
+###Lets take a look at what it adds
+
+Extract all data for event ID 303
+```{r}
+id303 <- all.movements[which(all.movements$event.id == 303),]
+head(id303)
+```
+The key here is to look at the EVENTMSGTYPE and EVENTMSGACTIONTYPE
+These fields contain information about the play as well as what happened on the play.
+I do not have definitive guide to these fields, but here is a starting point:
+
+EVENTMSGTYPE
+---
+1 - Make
+2 - Miss
+3 - Free Throw
+4 - Rebound
+5 - out of bounds / Turnover / Steal
+6 - Personal Foul
+7 - Violation
+8 - Substitution
+9 - Timeout
+10 - Jumpball
+12 - Start Q1?
+13 - Start Q2?
+
+EVENTMSGACTIONTYPE
+---
+1 - Jumpshot
+2 - Lost ball Turnover
+3 - ?
+4 - Traveling Turnover / Off Foul
+5 - Layup
+7 - Dunk
+10 - Free throw 1-1
+11 - Free throw 1-2
+12 - Free throw 2-2
+40 - out of bounds
+41 - Block/Steal
+42 - Driving Layup
+50 - Running Dunk
+52 - Alley Oop Dunk
+55 - Hook Shot
+57 - Driving Hook Shot
+58 - Turnaround hook shot
+66 - Jump Bank Shot
+71 - Finger Roll Layup
+72 - Putback Layup
+108 - Cutting Dunk Shot
+
+***
+###Comparing player distance for misses, makes, and rebounds
+Just to show the power of the play by play data, lets compare how far Ginobili travels on misses, makes, and rebounds.
+
+```{r}
+ginobili_make <- all.movements[which(all.movements$lastname == "Ginobili" & all.movements$EVENTMSGTYPE == 1),]
+ginobili_miss <- all.movements[which(all.movements$lastname == "Ginobili" & all.movements$EVENTMSGTYPE == 2),]
+ginobili_rebound <- all.movements[which(all.movements$lastname == "Ginobili" & all.movements$EVENTMSGTYPE == 4),]
+#Makes
+travelDist(ginobili_make$x_loc, ginobili_make$y_loc)
+#Misses
+travelDist(ginobili_miss$x_loc, ginobili_miss$y_loc)
+#Rebounds
+travelDist(ginobili_rebound$x_loc, ginobili_rebound$y_loc)
+```
+There are lots of explanation for these numbers, but this should give you an idea of the power of the play by play.
+
+***
+###Comparing player distance on layups
+Lets look at what players run the farthest on plays where there is a layup.
+```{r}
+player_layup <- all.movements[which(all.movements$EVENTMSGACTIONTYPE == 5),]
+player.groups <- group_by(player_layup, lastname)
+dist.traveled.players <- summarise(player.groups, totalDist=travelDist(x_loc, y_loc),playerid = max(player_id))
+arrange(dist.traveled.players, desc(totalDist))
+```
+
+Lets compare this to the list of players that run the farthest when a layup is made.
+```{r}
+player_layup <- all.movements[which(all.movements$EVENTMSGACTIONTYPE == 5 & all.movements$EVENTMSGTYPE == 1),]
+player.groups <- group_by(player_layup, lastname)
+dist.traveled.players <- summarise(player.groups, totalDist=travelDist(x_loc, y_loc),playerid = max(player_id))
+arrange(dist.traveled.players, desc(totalDist))
+```
+You can see that the list changes, because not every layup results in a made basket.
+These examples illustrate the power of using the play by play data.
+
+***
+###Credits
+I hope this helps people combine the SportVu data with the play by play data. I had some great help figuring all of this out. I need to credit [Justin](https://twitter.com/AcrossTheCourt), [Darrly Blackport](https://twitter.com/bballport), and [Grant Fiddyment](http://neurocoding.info/research/bball/).
+
+For more of my explorations on the NBA data you can see my [NBA Github repo](https://github.com/rajshah4/NBA_SportVu). You can find more information about me, [Rajiv Shah](http://www.rajivshah.com) or my other [projects](http://projects.rajivshah.com) or find me on [Twitter](http://twitter.com/rajcs4).

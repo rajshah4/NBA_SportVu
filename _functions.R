@@ -125,3 +125,13 @@ player_dist_matrix <- function(eventID) {
   bigdistancedf$game_clock <- clockinfo$game_clock
   return (bigdistancedf)
 }
+
+get_pbp <- function(gameid){
+  URL1 <- paste("http://stats.nba.com/stats/playbyplayv2?EndPeriod=10&EndRange=55800&GameID=",gameid,"&RangeType=2&StartPeriod=1&StartRange=0",sep = "")
+  the.data.file<-fromJSON(URL1)
+  test <-the.data.file$resultSets$rowSet
+  test2 <- test[[1]]
+  test3 <- data.frame(test2)
+  coltest <- the.data.file$resultSets$headers
+  colnames(test3) <- coltest[[1]]
+  return (test3)}
