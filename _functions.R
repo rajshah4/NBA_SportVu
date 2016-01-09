@@ -135,3 +135,13 @@ get_pbp <- function(gameid){
   coltest <- the.data.file$resultSets$headers
   colnames(test3) <- coltest[[1]]
   return (test3)}
+
+chull_area <- function(X,Y){
+  df_hull <- data.frame(X = X, Y = Y)
+  c.hull <- chull(df_hull)
+  #You need five points to draw four line segments, so we add the first set of points at the end
+  c.hull <- c(c.hull, c.hull[1])
+  chull.coords <- df_hull[c.hull ,]
+  chull.poly <- Polygon(chull.coords, hole=F)
+  chull.area <- chull.poly@area
+  return (chull.area)}
