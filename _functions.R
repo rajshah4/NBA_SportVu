@@ -3,12 +3,14 @@
 library(RCurl)
 library(jsonlite)
 library(dplyr)
+library(sp)
 
 factorconvert <- function(f){as.numeric(levels(f))[f]}
 
 sportvu_convert_json <- function (file.name)
 {
   # Much of the process is from http://tcbanalytics.com/blog/nba-movement-data-R.html#.VnX8d4RiOCQ
+  # Takes a json and converts it into a dataframe
   the.data.file<-fromJSON(file.name)
   ##Get the sports vu data
   moments <- the.data.file$events$moments
@@ -89,6 +91,7 @@ travelDist <- function(xloc, yloc){
 }
 
 player_dist <- function(lastnameA,lastnameB, eventID) {
+  #Functions finds the distance of the player, assumes you have a dataframe all.movements with player info
   df <- all.movements[which((all.movements$lastname == lastnameA | all.movements$lastname == lastnameB) & all.movements$event.id == eventID),]
   dfA <- df %>% filter (lastname==lastnameA) %>% select (x_loc,y_loc) 
   dfB <- df %>% filter (lastname==lastnameB) %>% select (x_loc,y_loc) 
@@ -98,13 +101,15 @@ player_dist <- function(lastnameA,lastnameB, eventID) {
 }
 
 get_game_clock <- function(lastnameA,eventID){
+  #Function gets the glame clock, assumes there is a dataframe all.movements with player info
   alldf <- all.movements[which((all.movements$lastname == lastnameA) & all.movements$event.id == eventID),]
   game_clock <- alldf$game_clock
   return(as.data.frame(game_clock))
 }
 
 player_dist_matrix <- function(eventID) {
-  
+  #Function creates a matrix of all player/ball distances with each other
+  #assumes there a dataframe all.movements with player info
   players <- all.movements %>% filter(event.id==pickeventID) %>% select(lastname) %>% distinct(lastname)
   players2 <- players
   bigdistance <-unlist(lapply(list(players$lastname)[[1]], function(X) {
@@ -127,6 +132,7 @@ player_dist_matrix <- function(eventID) {
 }
 
 get_pbp <- function(gameid){
+  #Grabs the play by play data from the NBA site
   URL1 <- paste("http://stats.nba.com/stats/playbyplayv2?EndPeriod=10&EndRange=55800&GameID=",gameid,"&RangeType=2&StartPeriod=1&StartRange=0",sep = "")
   the.data.file<-fromJSON(URL1)
   test <-the.data.file$resultSets$rowSet
@@ -137,6 +143,7 @@ get_pbp <- function(gameid){
   return (test3)}
 
 chull_area <- function(X,Y){
+  #Calculates the convex hull area
   df_hull <- data.frame(X = X, Y = Y)
   c.hull <- chull(df_hull)
   #You need five points to draw four line segments, so we add the first set of points at the end
@@ -145,3 +152,80 @@ chull_area <- function(X,Y){
   chull.poly <- Polygon(chull.coords, hole=F)
   chull.area <- chull.poly@area
   return (chull.area)}
+
+chull_areabyteam <- function (total,balltime) {
+  #Function returns a dataframe with event id and convex hull area for each team
+  #Function requires an input of a dataframe with the rotated plays and a dataframe indicating event/time
+  #for calculating convex hull area
+  allsum <- NULL
+  teams <- as.list((unique(total$team_id)))
+  teams <- teams[!is.na(teams)]
+  for(i in 1:(nrow(balltime))) 
+  {temp <- total %>% filter(event.id == balltime$event.id[i] & game_clock == balltime$clock28[i])  %>% filter(lastname!="ball")
+  if (nrow(temp) == 10) {
+    dfall <- lapply(teams,function (x) { df <- temp %>% filter(team_id == x)
+    if (nrow(df) == 5) {area <- (chull_area(df$x_loc_r,df$y_loc_r))
+    area}
+    })
+    df <- cbind(balltime$event.id[i],teams[[1]],dfall[[1]],teams[[2]],dfall[[2]])  
+    allsum <- rbind(df,allsum)
+  }
+  }
+  allsum <- as.data.frame(allsum)
+  colnames(allsum)<-c("event.id","team1","team1_area","team2","team2_area")
+  return(allsum)
+}        
+
+player_position <- function(eventid,gameclock){
+  ##Returns positions of all players at a time
+  ##Requires data in total and balltime
+  
+  ############REMOVED [i] from this
+    dfall <- total %>% filter(game_clock == gameclock,event.id=eventid)  %>% 
+      filter(lastname!="ball") %>% select (team_id,x_loc_r,y_loc_r)
+    colnames(dfall) <- c('ID','X','Y')
+    return(dfall)
+  }
+
+chull_plot <- function(event.id,game_clock) {
+  ##Returns a data frame with the coordinates of a convex hull
+  ##Requires player_position for info
+    df2 <- player_position(event.id,game_clock)
+    df_hull2 <- df2 %>% filter(ID == min(ID)) %>% select(X,Y)
+    df_hull3 <- df2 %>% filter(ID == max(ID)) %>% select(X,Y)
+    c.hull2 <- chull(df_hull2)
+    c.hull3 <- chull(df_hull3)
+    #You need five points to draw four line segments, so we add the fist set of points at the end
+    c.hull2 <- c(c.hull2, c.hull2[1])
+    c.hull3 <- c(c.hull3, c.hull3[1])
+    df2 <- as.data.frame(cbind(1,df_hull2[c.hull2 ,]$X,df_hull2[c.hull2 ,]$Y))
+    df3 <- as.data.frame(cbind(2,df_hull3[c.hull3 ,]$X,df_hull3[c.hull3 ,]$Y))
+    dfall <- rbind(df2,df3)
+    colnames(dfall) <- c('ID','X','Y')
+    return(dfall)
+  }
+
+chull_plot_centroid <- function(event.id,game_clock) {
+  ##Returns a data frame with the centroid of a convex hull
+  ##Requires player_position for info
+      df2 <- player_position(event.id,game_clock)
+      df_hull2 <- df2 %>% filter(ID==min(ID)) %>% select(X,Y)
+      df_hull3 <- df2 %>% filter(ID==max(ID)) %>% select(X,Y)
+      c.hull2 <- chull(df_hull2)
+      c.hull3 <- chull(df_hull3)
+      df2centroid <- c(1,mean(df_hull2[c.hull2 ,]$X),mean(df_hull2[c.hull2 ,]$Y))
+      df3centroid <- c(2,mean(df_hull3[c.hull3 ,]$X),mean(df_hull3[c.hull3 ,]$Y))
+      dfall <- as.data.frame(rbind(df2centroid,df3centroid))
+      colnames(dfall) <- c('ID','X','Y')
+      return(dfall)
+}
+
+chull_plot_area <- function(event.id,game_clock) {
+  ##Returns a data frame with the area of each convex hull by team ID
+  ##Requires player_position for info
+  df2 <- player_position(event.id,game_clock)
+  df2area <- df2 %>% group_by(ID) %>% summarise (area = chull_area(X,Y)) %>% select (ID,area)
+  return (df2area)
+}
+
+

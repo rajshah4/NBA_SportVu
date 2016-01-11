@@ -1,0 +1,132 @@
+---
+title: "Measuring Player Spacing Using Convex Hulls"
+output: html_document
+---
+
+This page shows how to measure the spacing distance using the concept of a convex hull measurement.  [Stephen Shea](https://twitter.com/SteveShea33) and [Chris Baker](https://twitter.com/ChrisBakerAM) explain this in [their article](http://www.basketballanalyticsbook.com/2015/09/14/preliminary-investigation-into-defensive-stretch/).  Take the players' positions and create a convex hull around them.  The area of the defensive polygon is termed Convex Hull Area of the Defense (CHAD) and the area of the offense is called the Convex Hull Area of the Offense (CHAO).  Shea and Baker argue and show with limited data that the lineups that typically stretched the defense (CHAO much greater than CHAD) were very successful and efficient.
+
+In this markdown, I want to show how to calculate these metrics using the SportsVU data.  As a starting point, it is necessary to use my previous notebooks to [grab the data](http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html) and merge the [play by play](http://projects.rajivshah.com/sportvu/PBP_NBA_SportVu.html).
+
+***
+###Load libraries and functions
+```{r}
+library(RCurl)
+library(jsonlite)
+library(dplyr)
+library(sp)
+library(ggplot2)
+source("_functions.R")
+source("_function_halfcourt.R")
+```
+
+
+***
+###Grab the data for one event
+
+Extract all data for event ID 303. Please refer to my other posts for how this data is downloaded and merged.
+```{r}
+all.movements <- sportvu_convert_json("data/0021500431.json")
+gameid = "0021500431"
+pbp <- get_pbp(gameid) 
+pbp <- pbp[-1,]
+colnames(pbp)[2] <- c('event.id')
+#Trying to limit the fields to join to keep the overall size manageable
+pbp <- pbp %>% select (event.id,EVENTMSGTYPE,EVENTMSGACTIONTYPE,SCORE)
+pbp$event.id <- as.numeric(levels(pbp$event.id))[pbp$event.id]
+all.movements <- merge(x = all.movements, y = pbp, by = "event.id", all.x = TRUE)
+id303 <- all.movements[which(all.movements$event.id == 303),]
+```
+
+***
+###Capture the players' positions
+The next step is capturing the player's positions so the area can be calculated. For this example, I calculated it when the ball crossed the 28' foot line (the top of the 3 point arc). The first step is finding the exact time the ball crossed the the line:
+
+```{r}
+#Capture the first time they get to 28'
+balltime <- id303 %>% group_by(event.id) %>% filter(lastname=="ball")  %>% 
+  summarise(clock28 = max(game_clock[x_loc<28])) %>% print(event.id,clock28)
+
+#Find the positions of the players for each team at time 373.4 for event 303
+dfall <- id303 %>% filter(game_clock == balltime$clock28)  %>% 
+      filter(lastname!="ball") %>% select (team_id,x_loc,y_loc)
+colnames(dfall) <- c('ID','X','Y')
+head(dfall)
+```
+
+***
+###Calculate the Convex Hull
+R includes a number of geometry functions, including how to calculate the convex hull.
+For this example, lets calculate the convex hull for the defensive team.
+
+```{r}
+df_hull2 <- dfall %>% filter(ID == min(ID)) %>% select(X,Y)
+c.hull2 <- chull(df_hull2)  #Calculates convex hull#
+c.hull3 <- c(c.hull2, c.hull2[1]) #You need five points to draw four line segments, so we add the first set of points at the end
+df2 <- as.data.frame(cbind(1,df_hull2[c.hull3 ,]$X,df_hull2[c.hull3 ,]$Y))
+colnames(df2) <- c('ID','X','Y')
+df2 # The points of the convex hull
+ggplot(df2, aes(x=X, y=Y)) + geom_polygon()  
+```
+
+
+***
+###Get the area of the convex hull
+To use the convex hull feature, its important to be able to calculate its area and centroid.
+
+```{r}
+  chull.coords <- df_hull2[c.hull3 ,]
+  chull.poly <- Polygon(chull.coords, hole=F)  #From the package sp
+  chull.area <- chull.poly@area
+  chull.area
+```  
+
+***
+###Get the centroid of the convex hull
+The centroid is useful if you are trying to measure the defender’s average distance to the average position of the defense. Stephen and Chris refer to that as the DDA (for Defender’s Distance from Average).
+```{r}
+dfcentroid <- c(mean(df_hull2[c.hull2 ,]$X),mean(df_hull2[c.hull2 ,]$Y))
+dfcentroid 
+```  
+
+***
+###Plot this on a basketball court
+The area is easier to see on a court. To create this visualization, it is first necessary to create a background image of the basketball court and then overlay the players and convex hull plot. To do this, I created a number of functions that are on my github. I also slightly changed the time and did this 10 seconds later to highlight the difference in area each team controlled.
+
+```{r}
+##These functions assume you have all the movement data in a data frame called total
+
+#Convert data into suitable format
+total <-id303
+total$x_loc_r <- total$x_loc
+total$y_loc_r <- total$y_loc
+
+#Get data for building graphic
+dplayer <- player_position(303,361.11) #Gets positions of players
+dchull <- chull_plot(303,361.11)       #Gets area of convex hull
+dcentroid <- chull_plot_centroid(303,361.11)  #Gets centroid of convex hull
+
+#Plot graphic
+  halfcourt() + 
+    ##Add players
+    geom_point(data=dplayer,aes(x=X,y=Y,group=ID),color=dense_rank(dplayer$ID),size=5) + scale_colour_brewer() +
+    ##Add Convex hull areas
+  geom_polygon(data=dchull,aes(x=X,y=Y,group=ID),fill=dense_rank(dchull$ID),alpha = 0.2) + scale_fill_brewer() + 
+    ##Add Centroids
+  scale_shape_identity() + geom_point(data=dcentroid,aes(x=X,y=Y,group=dcentroid$ID),color=(dcentroid$ID),size=3,shape=8) 
+```
+
+***
+###Build on this code
+I used the above functions to calculate the differences in area by team for the game between San Antonio and Minnesota on Dec. 23rd.
+
+I am still refining my code for calculating an entire game, but my first set of results found an average area of:
++ On makes -  SAS:356 versus MIN:303
++ On misses - SAS:326 versus MIN:280
+
+This is not surprising given that San Antonio won this game by a large margin.  
+
+***
+###Credits
+Thanks again to Steve and Chris for the writing about using convex hulls for analyzing basketball.
+
+For more of my explorations on the NBA data you can see my [NBA Github repo](https://github.com/rajshah4/NBA_SportVu). You can find more information about me, [Rajiv Shah](http://www.rajivshah.com) or my other [projects](http://projects.rajivshah.com) or find me on [Twitter](http://twitter.com/rajcs4).
