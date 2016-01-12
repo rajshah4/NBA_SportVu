@@ -9,4 +9,6 @@ EDA_NBA_SportVu.Rmd - A markup document showing basic EDA on the movement data. 
 
 PBP_NBA_SportVu.Rmd - A markup document showing how to merge play by play data with the SportVu movement data.  It is published at http://projects.rajivshah.com/sportvu/PBP_NBA_SportVu.html 
 
+Chull_NBA_SportVu.Rmd - A markup document for measuring player spacing using convex hulls with the SportVu movement data.  It is published at http://projects.rajivshah.com/sportvu/Chull_NBA_SportVu.html
+
 
