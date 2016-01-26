@@ -1,7 +1,10 @@
 ---
-title: "Measuring Player Spacing Using Convex Hulls"
+title: "Measuring Player Velocity, Acceleration, and Jerk"
 output: html_document
 ---
+
+This page show how to calculate player velocity, acceleration, and jerk.  For background, here is a primer on physics as well as a paper measuring acceleration using SportVu data by .
+
 
 This page shows how to measure the spacing distance using the concept of a convex hull measurement.  [Stephen Shea](https://twitter.com/SteveShea33) and [Chris Baker](https://twitter.com/ChrisBakerAM) explain this in [their article](http://www.basketballanalyticsbook.com/2015/09/14/preliminary-investigation-into-defensive-stretch/).  Take the players' positions and create a convex hull around them.  The area of the defensive polygon is termed Convex Hull Area of the Defense (CHAD) and the area of the offense is called the Convex Hull Area of the Offense (CHAO).  Shea and Baker argue and show with limited data that the lineups that typically stretched the defense (CHAO much greater than CHAD) were very successful and efficient.
 
@@ -119,9 +122,9 @@ dcentroid <- chull_plot_centroid(303,361.11)  #Gets centroid of convex hull
 ###Build on this code
 I used the above functions to calculate the differences in area by team for the game between San Antonio and Minnesota on Dec. 23rd.
 
-I am still refining my code for calculating an entire game, but my first set of results found an average area of:
-+ On makes -  SAS:356 versus MIN:303
-+ On misses - SAS:326 versus MIN:280
+I am still refining my code for calculating an entire game, but my first set of results found an average area of:  
+On makes:  SAS: 356 versus MIN: 303  
+On misses: SAS: 326 versus MIN: 280  
 
 This is not surprising given that San Antonio won this game by a large margin.  
 
