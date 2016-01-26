@@ -179,8 +179,6 @@ chull_areabyteam <- function (total,balltime) {
 player_position <- function(eventid,gameclock){
   ##Returns positions of all players at a time
   ##Requires data in total and balltime
-  
-  ############REMOVED [i] from this
     dfall <- total %>% filter(game_clock == gameclock,event.id=eventid)  %>% 
       filter(lastname!="ball") %>% select (team_id,x_loc_r,y_loc_r)
     colnames(dfall) <- c('ID','X','Y')
@@ -228,4 +226,33 @@ chull_plot_area <- function(event.id,game_clock) {
   return (df2area)
 }
 
+velocity <- function(xloc, yloc){
+  diffx <- as.vector((diff(xloc)))
+  diffy <- as.vector((diff(yloc)))
+  diffx2 <- diffx ^ 2
+  diffy2 <- diffy ^ 2
+  a<- diffx2 + diffy2
+  b<-sqrt(a)*25 #(distance in feet per second)
+  b
+}
+
+acceleration <- function(xloc, yloc){
+  diffx <- as.vector((diff(xloc,differences = 2)))
+  diffy <- as.vector((diff(yloc,differences = 2)))
+  diffx2 <- diffx ^ 2
+  diffy2 <- diffy ^ 2
+  a<- diffx2 + diffy2
+  b<-sqrt(a)*25/32.173*25 #(distance in feet per second)
+  b
+}
+
+jerk <- function(xloc, yloc){
+  diffx <- as.vector((diff(xloc,differences = 3)))
+  diffy <- as.vector((diff(yloc,differences = 3)))
+  diffx2 <- diffx ^ 2
+  diffy2 <- diffy ^ 2
+  a<- diffx2 + diffy2
+  b<-sqrt(a)*25/32.173*25*25 #(distance in feet per second)
+  b
+}
 
