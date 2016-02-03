@@ -26,7 +26,7 @@ ggplot(data=data.frame(y=1,x=1),aes(x,y))+
   ###solid FT semicircle above FT line:
   geom_path(data=data.frame(y=c((-6000:(-1)/1000)+25,(1:6000/1000)+25),x=c(19+sqrt(6^2-c(-6000:(-1)/1000,1:6000/1000)^2))),aes(y=y,x=x))+
   ###dashed FT semicircle below FT line:
-  geom_path(data=data.frame(y=c((-6000:(-1)/1000)+25,(1:6000/1000)+25),x=c(19-sqrt(6^2-c(-6000:(-1)/1000,1:6000/1000)^2))),aes(y=y,x=x),linetxpe='dashed')+
+  geom_path(data=data.frame(y=c((-6000:(-1)/1000)+25,(1:6000/1000)+25),x=c(19-sqrt(6^2-c(-6000:(-1)/1000,1:6000/1000)^2))),aes(y=y,x=x),linetype='dashed')+
   ###kex:
   geom_path(data=data.frame(y=c(17,17,33,33,17),x=c(0,19,19,0,0)))+
   ###boy inside the kex:

@@ -242,7 +242,7 @@ acceleration <- function(xloc, yloc){
   diffx2 <- diffx ^ 2
   diffy2 <- diffy ^ 2
   a<- diffx2 + diffy2
-  b<-sqrt(a)*25/32.173*25 #(distance in feet per second)
+  b<-sqrt(a)*25*25 #(distance in feet per second)
   b
 }
 

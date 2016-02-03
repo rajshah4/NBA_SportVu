@@ -8,3 +8,9 @@
 .Rhistory
 
 *.gz
+
+*.7z
+
+data/all2/Readme.md
+
+data/all2/svn-cigg54
