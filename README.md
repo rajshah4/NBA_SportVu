@@ -11,4 +11,4 @@ PBP_NBA_SportVu.Rmd - A markup document showing how to merge play by play data w
 
 Chull_NBA_SportVu.Rmd - A markup document for measuring player spacing using convex hulls with the SportVu movement data.  It is published at http://projects.rajivshah.com/sportvu/Chull_NBA_SportVu.html
 
-
+Velocity_NBA_SportVu.RMd - A markup document or measuring player velocity, acceleration, and jerk using the NBA SportVu movement data.  it is published at http://projects.rajivshah.com/sportvu/Velocity_NBA_SportVu.html
