@@ -1,0 +1,135 @@
+---
+title: "Measuring Player Velocity, Acceleration, and Jerk"
+output: html_document
+---
+
+This page shows how to calculate player velocity, acceleration, and jerk. For background, here is a [primer on physics](http://physics.info/kinematics-calculus/) as well as a [paper measuring acceleration](http://www.sloansportsconference.com/wp-content/uploads/2013/Acceleration%20in%20the%20NBA%20Towards%20an%20Algorithmic%20Taxonomy%20of%20Basketball%20Plays.pdf) using SportVu data by [Philip Maymin](https://twitter.com/pmaymin). I am not an expert in physics, so please gently correct me if there are errors.
+
+In this markdown, I want to show how to calculate these metrics using the SportsVU data.  As a starting point, it is necessary to use my previous notebooks to [grab the data](http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html).
+
+***
+###Load libraries and functions
+```{r}
+library(dplyr)
+library(plotly)
+library(TTR)
+source("_functions.R")
+```
+
+***
+###Grab the data for one event
+
+To demonstrate calculating velocity, I picked a play with a quick pass in the Magic Wizards game on January 1st (event ID of 422).  You can see the [youtube video](https://www.youtube.com/watch?v=QjJE2aNzOm4) or the [SportVU movement data](http://stats.nba.com/game/#!/0021500490/playbyplay/#play422~) **not currently available**.
+
+The first step is extracting the data for event ID 422. Please refer to my other posts for how this data is downloaded and merged. I am importing a file that has been previously processed in a data frame with movement data.
+```{r}
+all.movements <- read.csv("data/0021500490.gz")
+event_df <- all.movements %>% 
+                dplyr::arrange(quarter,desc(game_clock),x_loc) %>% 
+                filter(event.id==422)
+```
+
+***
+###Viewing velocity for the ball
+Lets start with looking at the velocity of the ball.  I will later go into how velocity is calculated.  The graph here shows how velocity changes over the play.  Compare this by looking at the movement of the actual play.  The results are in feet per second. 10 feet per second converts to 6.8 miles per hour.
+
+```{r}
+df_ball <- event_df %>% 
+              filter(player_id == "-1") %>% 
+              filter (shot_clock != 24)  #Remove some extra spillover data from the next event
+#Using a function I created to get velocity
+v <- velocity(df_ball$x_loc, df_ball$y_loc)
+mean(v)
+#Plotting 
+f <- list(
+  family = "Helvetica, monospace",
+  size = 18,
+  color = "#7f7f7f"
+)
+x <- list(
+  title = "Time",
+  titlefont = f
+)
+y <- list(
+  title = "Velocity ft/s",
+  titlefont = f
+)
+plot_ly(y=v) %>%
+  layout(xaxis = x, yaxis = y)
+```
+
+***
+##Diving deeper - Calculating Velocity
+Lets step through the calculation of velocity.  Calculating acceleration and jerk are just higher orders of the diff function - (take a look at my functions for the detail).
+
+```{r}
+##Need to calculate the difference between two points - Use the R function diff
+diffx <- as.vector((diff(df_ball$x_loc)))
+head(diffx)
+diffy <- as.vector((diff(df_ball$y_loc)))
+##Next lets calculate the distance between each of these points  
+diffx2 <- diffx ^ 2
+diffy2 <- diffy ^ 2
+a<- diffx2 + diffy2
+b<-sqrt(a)
+##Then we need to divide by time - in this case time is 0.04 for the interval between points
+b <- b / .04
+head(b)
+```  
+
+***
+###Time Series
+The velocity can also be seen as a simple time series.  R has some great functions for time series, so lets start by creating a time series object in R.  The plot here can be confusing, because as the play goes on, the time gets smaller.  View it from right to left.
+
+```{r}
+timeseries <- cbind (v, df_ball$game_clock[-1])  #in creating the diff, we lose one value
+timeseries <- as.data.frame(timeseries)
+ball.ts <- ts(timeseries,end=df_ball$game_clock[1],start=df_ball$game_clock[136],frequency = 25)
+plot_ly(x=timeseries$V2,y=v,data = timeseries) %>%
+  layout(xaxis = x, yaxis = y)
+```  
+
+***
+###Simple Moving Average
+Time series data can be noisy and have all sorts of spikes. A traditional method for dealing with this is smoothing the data using a simple moving average. I have found 5 periods seems to work the best to average the data (n).  Please let me know your experience in tweaking the time series data.
+
+```{r}
+##Averaging over 3 points
+timeseriesSMA3v <- SMA(timeseries,n=3)
+plot_ly(y=timeseriesSMA3v) %>%
+  layout(xaxis = x, yaxis = y)
+
+##Averaging over 5 points
+timeseriesSMA5v <- SMA(timeseries,n=5)
+plot_ly(y=timeseriesSMA5v) %>%
+  layout(xaxis = x, yaxis = y)
+ 
+##Averaging over 8 points
+timeseriesSMA8v <- SMA(timeseries,n=8)
+plot_ly(y=timeseriesSMA8v) %>%
+  layout(xaxis = x, yaxis = y)
+```
+
+***
+###Graphs for the acceleration and jerk
+
+```{r}
+##Acceleration
+a <- acceleration(df_ball$x_loc, df_ball$y_loc)
+timeseriesa <- cbind (a, df_ball$game_clock[-1:-2])
+timeseriesSMAa <- SMA(timeseriesa,n=3)
+plot_ly(y=timeseriesSMAa)
+
+##Jerk
+j <- jerk(df_ball$x_loc, df_ball$y_loc)
+timeseriesj <- cbind (j, df_ball$game_clock[-1:-3])
+timeseriesSMAj <- SMA(timeseriesj,n=3)
+plot_ly(y=timeseriesSMAj)
+```
+
+***
+###Credits
+
+For more of my explorations on the NBA data you can see my [NBA Github repo](https://github.com/rajshah4/NBA_SportVu), specific posts include [EDA](http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html), [merging play by play data](http://projects.rajivshah.com/sportvu/PBP_NBA_SportVu.html), and measuring player spacing using [convex hulls](http://projects.rajivshah.com/sportvu/Chull_NBA_SportVu.html).
+
+I have pages providing more background on me, [Rajiv Shah](http://www.rajivshah.com), my other [projects](http://projects.rajivshah.com), or find me on [Twitter](http://twitter.com/rajcs4).
