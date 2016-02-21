@@ -1,0 +1,157 @@
+---
+title: "Analyzing Trajectories in SportVu Data"
+output: html_document
+---
+
+This page shares a few different way to analyzing player and ball trajectories. I have been exploring these methods as I build new features on the SportVu data. I start by visualizing trajectories, then simplifying trajectories, and finally consider some similarity measures.
+
+As a starting point, it is necessary to use my previous notebooks to [grab the data](http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html).
+
+***
+###Load libraries and functions
+```{r results='hide', message=FALSE, warning=FALSE}
+library(dplyr)
+library(fields)
+library(spacetime)
+library(rgeos)
+library(sp)
+library(SimilarityMeasures)
+source("_functions.R")
+source("_function_fullcourt.R")
+```
+
+***
+###Grab the data for one event
+
+To demonstrate calculating velocity, I picked a play with a quick pass in the Magic Wizards game on January 1st (event ID of 422).  You can see the [youtube video](https://www.youtube.com/watch?v=QjJE2aNzOm4) or the [SportVU movement data](http://stats.nba.com/game/#!/0021500490/playbyplay/#play422~) **not currently available**.
+
+The first step is extracting the data for event ID 422. Please refer to my other posts for how this data is downloaded and merged. I am importing a file that has been previously processed in a data frame with movement data.
+```{r}
+all.movements <- read.csv("data/0021500490.gz")
+event_df <- all.movements %>% 
+                dplyr::arrange(quarter,desc(game_clock),x_loc) %>% 
+                filter(event.id==422)
+```
+
+***
+###Viewing the motion of the ball
+Lets start with looking at how the ball moves.  
+
+```{r}
+df_ball <- event_df %>% 
+              filter(player_id == "-1") %>% 
+              filter (shot_clock != 24)  #Remove some extra spillover data from the next event
+#Plot ball movement
+  fullcourt() + 
+    geom_point(data=df_ball,aes(x=x_loc,y=y_loc),color='red') 
+```
+
+***
+##Vector Fields
+The sportvu data provides a trajectory of movement.  Vector fields can be used to analyze and visualize the direction and speed of the ball.  The arrow plot uses the location and velocity for the plot.
+
+```{r}
+# Using fields package 
+x <- df_ball$x_loc
+y <- df_ball$y_loc
+u <- diff(x)
+v <- diff(y)
+x <- x[-1]
+y <- y[-1]
+plot( x,y, type="n")
+arrow.plot(x,y,u,v, arrow.ex=.1, length=.1, col='blue', lwd=1)
+```  
+
+***
+###Simplifying Trajectories
+The SportVu data has a frequency of 25 times a second.  While this granularity provides lots of detail, sometimes there is a need to simplify. The Ramer–Douglas–Peucker algorithm (RDP) is a well known algorithm for reducing the number of points in a curve. Using this with the fields package, means first we need to convert the data into a SpatialLines object.
+
+
+```{r}
+# Get data into spatial lines
+xy <- cbind(df_ball$x_loc, df_ball$y_loc)
+xy.sp <- SpatialPoints(xy)
+sl = as(xy.sp, "SpatialLines")
+# Applies RDP
+xy.spdf.simple <- gSimplify(sl,tol = .5,topologyPreserve=FALSE)
+#See how much the data has been simplified
+plot(xy.spdf.simple, pch = 2,xlim = c(0,94),ylim=c(0,50),axes = TRUE)
+
+##By changing the tolerance value, we can affect how much it is simplified
+xy.spdf.simple <- gSimplify(sl,tol = 5,topologyPreserve=FALSE)
+plot(xy.spdf.simple, pch = 2,xlim = c(0,94),ylim=c(0,50),axes = TRUE)
+
+```  
+
+***
+###Analyze two trajectories
+For this example, I am taking one event and splitting into two trajectories, to illustrate this approach.  
+```{r}
+# Get the trajectories to use
+event_df2 <- all.movements %>% 
+                dplyr::arrange(quarter,desc(game_clock),x_loc) %>% 
+                filter(player_id == "-1") %>% 
+                filter(event.id==35)
+df1 <- event_df2 %>% filter(game_clock<=397.84)
+df2 <- event_df2 %>% filter(game_clock>397.84)
+
+# Plot first trajectory
+fullcourt() + geom_point(data=df1,aes(x=x_loc,y=y_loc),color='red') 
+# Plot second trajectory
+fullcourt() + geom_point(data=df2,aes(x=x_loc,y=y_loc),color='blue') 
+
+##Simplify the trajectories
+xy.sp1 <- SpatialPoints(cbind(df1$x_loc, df1$y_loc))
+xy.sp2 <- SpatialPoints(cbind(df2$x_loc, df2$y_loc))
+sl1 = as(xy.sp1, "SpatialLines")
+sl2 = as(xy.sp2, "SpatialLines")
+xy.spdf.simple1 <- gSimplify(sl1,tol = .5,topologyPreserve=FALSE)
+xy.spdf.simple2 <- gSimplify(sl2,tol = .5,topologyPreserve=FALSE)
+df_c1 <- (coordinates(xy.spdf.simple1))[[1]][[1]]
+df_c2 <- (coordinates(xy.spdf.simple2))[[1]][[1]]
+df1s <- as.data.frame(df_c1)
+df2s <- as.data.frame(df_c2)
+
+# Plot first trajectory simplified
+fullcourt() + geom_line(data=df1s,aes(x=df_c1[,1],y=df_c1[,2]),color='red') 
+# Plot second trajectory simplified
+fullcourt() + geom_line(data=df2s,aes(x=df_c2[,1],y=df_c2[,2]),color='blue') 
+```
+
+
+***
+###Fréchet distance
+The Fréchet distance is a measure of similarity between curves that takes into account the location and ordering of the points along the curves. This can be used to compare the similarity between two trajectories. It is usually described as: A man is walking a dog on a leash, the man walks on one curve while the dog walks on the other (Alt & Godau, 1995). The dog and the man are able to vary their speeds, or even stop, but not go backwards. The Frechet metric is the minimum leash length required to complete the traversal of both curves
+![Fréchet distance](http://www.electro-tech-online.com/attachments/frechet-distance-png.93759/)
+
+```{r}
+# No Leash
+Frechet(df_c1,df_c2, testLeash=-1)
+# Set Leash to 20
+Frechet(df_c1,df_c2, testLeash=20)
+# Set Leash to 100
+Frechet(df_c1,df_c2, testLeash=100)
+
+```
+***
+###Dynamic Time Warping
+The dynamic time warping algorithm (DTW) calculates the smallest warp path for the two trajectories.
+This version the warping path is equal to the sum of the distances at each point along the path. 
+
+```{r}
+DTW(df_c1,df_c2, -1)
+```
+***
+###LCSS
+A function to calculate the longest common subsequence between two trajectories. This calculation
+automatically uses translations to find the largest value.
+```{r}
+# Convert to track for the trajectory package 
+LCSS(df_c1,df_c2, -1) ##Runs for a while
+```
+***
+###Credits
+
+For more of my explorations on the NBA data you can see my [NBA Github repo](https://github.com/rajshah4/NBA_SportVu), specific posts include [EDA](http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html), [merging play by play data](http://projects.rajivshah.com/sportvu/PBP_NBA_SportVu.html), measuring player spacing using [convex hulls](http://projects.rajivshah.com/sportvu/Chull_NBA_SportVu.html), and calculating [velocity/acceleration](http://projects.rajivshah.com/sportvu/Velocity_NBA_SportVu.html).
+
+I have pages providing more background on me, [Rajiv Shah](http://www.rajivshah.com), my other [projects](http://projects.rajivshah.com), or find me on [Twitter](http://twitter.com/rajcs4).
