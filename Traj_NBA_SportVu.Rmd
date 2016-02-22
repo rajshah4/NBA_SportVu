@@ -5,6 +5,8 @@ output: html_document
 
 This page shares a few different way to analyzing player and ball trajectories. I have been exploring these methods as I build new features on the SportVu data. I start by visualizing trajectories, then simplifying trajectories, and finally consider some similarity measures.
 
+The inspiration for this work was the hierarchical clustering of plays by [Johannes Becker](https://twitter.com/sportstribution) in this article at [Nylon Calculus](http://nyloncalculus.com/2015/10/26/deep-dives-sportvu-xs-and-os-a-proof-of-concept/).
+
 As a starting point, it is necessary to use my previous notebooks to [grab the data](http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html).
 
 ***
@@ -23,7 +25,7 @@ source("_function_fullcourt.R")
 ***
 ###Grab the data for one event
 
-To demonstrate calculating velocity, I picked a play with a quick pass in the Magic Wizards game on January 1st (event ID of 422).  You can see the [youtube video](https://www.youtube.com/watch?v=QjJE2aNzOm4) or the [SportVU movement data](http://stats.nba.com/game/#!/0021500490/playbyplay/#play422~) **not currently available**.
+Lets start by using the quick pass in the Magic Wizards game on January 1st (event ID of 422).  You can see the [youtube video](https://www.youtube.com/watch?v=QjJE2aNzOm4) or the [SportVU movement data](http://stats.nba.com/game/#!/0021500490/playbyplay/#play422~) **not currently available**.
 
 The first step is extracting the data for event ID 422. Please refer to my other posts for how this data is downloaded and merged. I am importing a file that has been previously processed in a data frame with movement data.
 ```{r}
@@ -48,7 +50,7 @@ df_ball <- event_df %>%
 
 ***
 ##Vector Fields
-The sportvu data provides a trajectory of movement.  Vector fields can be used to analyze and visualize the direction and speed of the ball.  The arrow plot uses the location and velocity for the plot.
+The SportVu data provides a trajectory of movement.  Vector fields can be used to analyze and visualize the direction and speed of the ball.  The arrow plot uses the location and velocity for the plot.
 
 ```{r}
 # Using fields package 
@@ -60,6 +62,7 @@ x <- x[-1]
 y <- y[-1]
 plot( x,y, type="n")
 arrow.plot(x,y,u,v, arrow.ex=.1, length=.1, col='blue', lwd=1)
+
 ```  
 
 ***
@@ -121,7 +124,7 @@ fullcourt() + geom_line(data=df2s,aes(x=df_c2[,1],y=df_c2[,2]),color='blue')
 
 ***
 ###Fréchet distance
-The Fréchet distance is a measure of similarity between curves that takes into account the location and ordering of the points along the curves. This can be used to compare the similarity between two trajectories. It is usually described as: A man is walking a dog on a leash, the man walks on one curve while the dog walks on the other (Alt & Godau, 1995). The dog and the man are able to vary their speeds, or even stop, but not go backwards. The Frechet metric is the minimum leash length required to complete the traversal of both curves
+The Fréchet distance is a measure of similarity between curves that takes into account the location and ordering of the points along the curves. This can be used to compare the similarity between two trajectories. It is usually described as: A man is walking a dog on a leash, the man walks on one curve while the dog walks on the other (Alt & Godau, 1995). The dog and the man are able to vary their speeds, or even stop, but not go backwards. The Frechet metric is the minimum leash length required to complete the traversal of both curves.
 ![Fréchet distance](http://www.electro-tech-online.com/attachments/frechet-distance-png.93759/)
 
 ```{r}
@@ -142,15 +145,16 @@ This version the warping path is equal to the sum of the distances at each point
 DTW(df_c1,df_c2, -1)
 ```
 ***
-###LCSS
+###Longest Common Subsequence based Measures
 A function to calculate the longest common subsequence between two trajectories. This calculation
 automatically uses translations to find the largest value.
 ```{r}
-# Convert to track for the trajectory package 
 LCSS(df_c1,df_c2, -1) ##Runs for a while
 ```
 ***
 ###Credits
+
+For more background on similarity measures for trajectories, see [An Effectiveness Study on Trajectory Similarity Measures](http://crpit.com/confpapers/CRPITV137Wang.pdf).
 
 For more of my explorations on the NBA data you can see my [NBA Github repo](https://github.com/rajshah4/NBA_SportVu), specific posts include [EDA](http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html), [merging play by play data](http://projects.rajivshah.com/sportvu/PBP_NBA_SportVu.html), measuring player spacing using [convex hulls](http://projects.rajivshah.com/sportvu/Chull_NBA_SportVu.html), and calculating [velocity/acceleration](http://projects.rajivshah.com/sportvu/Velocity_NBA_SportVu.html).
 
