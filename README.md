@@ -1,5 +1,5 @@
 ### NBA_SportVu
-Code for exploring the NBA SportVu motion data, more information at my [blog](http://projects.rajivshah.com/blog//2016/04/02/sportvu_analysis/).
+Code for exploring the NBA SportVu motion data, more information at my [blog](http://projects.rajivshah.com/blog/2016/04/02/sportvu_analysis/).
 
 _functions.R - Various functions that I have written.  The functions include *sportvu_convert_json* for importing motion data from a json to a data frame.  Other functions can extract distances players have traveled and create a matrix of player to player distances.
  
