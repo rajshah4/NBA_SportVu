@@ -3,7 +3,7 @@ title: "Analyzing Trajectories in SportVu Data"
 output: html_document
 ---
 
-This page shares a few different way to analyzing player and ball trajectories. I have been exploring these methods as I build new features on the SportVu data. I start by visualizing trajectories, then simplifying trajectories, and finally consider some similarity measures.
+This page shares a few different ways to analyzing player and ball trajectories. I have been exploring these methods as I build new features on the SportVu data. I start by visualizing trajectories, then simplifying trajectories, and finally consider some similarity measures.
 
 The inspiration for this work was the hierarchical clustering of plays by [Johannes Becker](https://twitter.com/sportstribution) in this article at [Nylon Calculus](http://nyloncalculus.com/2015/10/26/deep-dives-sportvu-xs-and-os-a-proof-of-concept/).
 

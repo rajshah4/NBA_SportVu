@@ -64,7 +64,7 @@ img {
 </div>
 
 
-<p>This page shares a few different way to analyzing player and ball trajectories. I have been exploring these methods as I build new features on the SportVu data. I start by visualizing trajectories, then simplifying trajectories, and finally consider some similarity measures.</p>
+<p>This page shares a few different ways to analyzing player and ball trajectories. I have been exploring these methods as I build new features on the SportVu data. I start by visualizing trajectories, then simplifying trajectories, and finally consider some similarity measures.</p>
 <p>The inspiration for this work was the hierarchical clustering of plays by <a href="https://twitter.com/sportstribution">Johannes Becker</a> in this article at <a href="http://nyloncalculus.com/2015/10/26/deep-dives-sportvu-xs-and-os-a-proof-of-concept/">Nylon Calculus</a>.</p>
 <p>As a starting point, it is necessary to use my previous notebooks to <a href="http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html">grab the data</a>.</p>
 <hr />
@@ -229,6 +229,15 @@ $(document).ready(function () {
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+  ga('create', 'UA-53239073-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>
