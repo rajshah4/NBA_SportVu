@@ -5,7 +5,7 @@ library(readr)
 source("_function_fullcourt.R")
 
 ##Command to create video, it can take several minutes to create a video
-make_video(final, "0021500490", "20")
+make_video(final, "0021500001", "3")
 
 
 

@@ -49,4 +49,4 @@ ggplot(data=data.frame(y=1,x=1),aes(x,y))+
   coord_fixed()+
   
   ###Clean up the Court 
-  theme_bw()+theme(panel.grid=element_blank(), legend.title=element_blank(), panel.border=element_blank(),axis.text=element_blank(),axis.ticks=element_blank(),axis.title=element_blank(),legend.position="top")+ggtitle("Convex Area Plot")}
+  theme_bw()+theme(panel.grid=element_blank(), legend.title=element_blank(), panel.border=element_blank(),axis.text=element_blank(),axis.ticks=element_blank(),axis.title=element_blank(),legend.position="top")+ggtitle("SportVu Curve")}
