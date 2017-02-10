@@ -1,388 +1,388 @@
-"player","teamName","count","games"
-"Acy","Sacramento Kings",7,39
-"Adams","Memphis Grizzlies",1,43
-"Adams","Oklahoma City Thunder",59,44
-"Afflalo","New York Knicks",8,44
-"Ajinca","New Orleans Pelicans",13,42
-"Aldrich","Los Angeles Clippers",8,38
-"Aldridge","San Antonio Spurs",72,40
-"Allen","Indiana Pacers",31,41
-"Allen","Memphis Grizzlies",14,43
-"Aminu","Portland Trail Blazers",21,44
-"Amundson","New York Knicks",7,44
-"Andersen","Miami Heat",1,42
-"Anderson","Dallas Mavericks",2,43
-"Anderson","New Orleans Pelicans",24,42
-"Anderson","Sacramento Kings",2,39
-"Anderson","San Antonio Spurs",4,40
-"Antetokounmpo","Milwaukee Bucks",16,43
-"Anthony","Detroit Pistons",12,42
-"Anthony","New York Knicks",32,44
-"Ariza","Houston Rockets",7,43
-"Arthur","Denver Nuggets",26,43
-"Asik","New Orleans Pelicans",42,42
-"Augustin","Oklahoma City Thunder",2,44
-"Babbitt","New Orleans Pelicans",3,42
-"Barbosa","Golden State Warriors",2,41
-"Barea","Dallas Mavericks",2,43
-"Bargnani","Brooklyn Nets",19,41
-"Barnes","Golden State Warriors",8,41
-"Barnes","Memphis Grizzlies",17,43
-"Barton","Denver Nuggets",5,43
-"Bass","Los Angeles Lakers",30,44
-"Batum","Charlotte Hornets",25,42
-"Baynes","Detroit Pistons",72,42
-"Bazemore","Atlanta Hawks",3,41
-"Beal","Washington Wizards",5,40
-"Belinelli","Sacramento Kings",9,39
-"Beverley","Houston Rockets",10,43
-"Biyombo","Toronto Raptors",58,41
-"Bjelica","Minnesota Timberwolves",10,41
-"Black","Los Angeles Lakers",8,44
-"Blair","Washington Wizards",14,40
-"Blake","Detroit Pistons",1,42
-"Bledsoe","Phoenix Suns",6,41
-"Bogdanovic","Brooklyn Nets",3,41
-"Bogut","Golden State Warriors",32,41
-"Bonner","San Antonio Spurs",5,40
-"Booker","Phoenix Suns",2,41
-"Booker","Utah Jazz",79,42
-"Bosh","Miami Heat",33,42
-"Bradley","Boston Celtics",9,39
-"Brewer","Houston Rockets",10,43
-"Brooks","Chicago Bulls",3,38
-"Brown","Los Angeles Lakers",4,44
-"Bryant","Los Angeles Lakers",13,44
-"Budinger","Indiana Pacers",2,41
-"Bullock","Detroit Pistons",6,42
-"Burke","Utah Jazz",5,42
-"Burks","Utah Jazz",1,42
-"Butler","Chicago Bulls",14,38
-"Butler","San Antonio Spurs",2,40
-"Calderon","New York Knicks",4,44
-"Caldwell-Pope","Detroit Pistons",25,42
-"Canaan","Philadelphia 76ers",6,39
-"Capela","Houston Rockets",74,43
-"Carroll","Toronto Raptors",8,41
-"Carter","Memphis Grizzlies",9,43
-"Carter-Williams","Milwaukee Bucks",2,43
-"Casspi","Sacramento Kings",11,39
-"Cauley-Stein","Sacramento Kings",25,39
-"Chalmers","Memphis Grizzlies",2,43
-"Chandler","Phoenix Suns",57,41
-"Clark","Golden State Warriors",3,41
-"Clarkson","Los Angeles Lakers",21,44
-"Cole","New Orleans Pelicans",2,42
-"Collison","Oklahoma City Thunder",25,44
-"Collison","Sacramento Kings",5,39
-"Conley","Memphis Grizzlies",5,43
-"Copeland","Milwaukee Bucks",1,43
-"Cousins","Sacramento Kings",38,39
-"Covington","Philadelphia 76ers",11,39
-"Crabbe","Portland Trail Blazers",9,44
-"Crawford","Los Angeles Clippers",9,38
-"Crowder","Boston Celtics",4,39
-"Cunningham","New Orleans Pelicans",5,42
-"Curry","Golden State Warriors",15,41
-"Curry","Sacramento Kings",1,39
-"Daniels","Charlotte Hornets",4,42
-"Davis","New Orleans Pelicans",39,42
-"Davis","Portland Trail Blazers",94,44
-"Dedmon","Orlando Magic",14,41
-"Dellavedova","Cleveland Cavaliers",15,36
-"Deng","Miami Heat",8,42
-"DeRozan","Toronto Raptors",10,41
-"Diaw","San Antonio Spurs",32,40
-"Dieng","Minnesota Timberwolves",43,41
-"Douglas","New Orleans Pelicans",3,42
-"Dragic","Miami Heat",6,42
-"Drummond","Detroit Pistons",144,42
-"Dudley","Washington Wizards",9,40
-"Duncan","San Antonio Spurs",49,40
-"Durant","Oklahoma City Thunder",19,44
-"Eddie","Washington Wizards",2,40
-"Ellington","Brooklyn Nets",6,41
-"Ellis","Indiana Pacers",4,41
-"Evans","Dallas Mavericks",7,43
-"Evans","New Orleans Pelicans",6,42
-"Ezeli","Golden State Warriors",45,41
-"Faried","Denver Nuggets",73,43
-"Favors","Utah Jazz",38,42
-"Felton","Dallas Mavericks",10,43
-"Fournier","Orlando Magic",15,41
-"Foye","Denver Nuggets",2,43
-"Frazier","Portland Trail Blazers",7,44
-"Frye","Orlando Magic",27,41
-"Gallinari","Denver Nuggets",23,43
-"Galloway","New York Knicks",6,44
-"Garnett","Minnesota Timberwolves",9,41
-"Gasol","Chicago Bulls",30,38
-"Gasol","Memphis Grizzlies",41,43
-"Gay","Sacramento Kings",24,39
-"Gee","New Orleans Pelicans",12,42
-"George","Indiana Pacers",11,41
-"Gibson","Chicago Bulls",54,38
-"Ginobili","San Antonio Spurs",5,40
-"Gobert","Utah Jazz",34,42
-"Gooden","Washington Wizards",2,40
-"Goodwin","Phoenix Suns",2,41
-"Gordon","New Orleans Pelicans",8,42
-"Gordon","Orlando Magic",30,41
-"Gortat","Washington Wizards",61,40
-"Grant","New York Knicks",6,44
-"Grant","Philadelphia 76ers",19,39
-"Green","Golden State Warriors",26,41
-"Green","Memphis Grizzlies",34,43
-"Green","Miami Heat",2,42
-"Green","San Antonio Spurs",12,40
-"Griffin","Los Angeles Clippers",20,38
-"Hairston","Charlotte Hornets",12,42
-"Hansbrough","Charlotte Hornets",5,42
-"Harden","Houston Rockets",8,43
-"Harkless","Portland Trail Blazers",13,44
-"Harrell","Houston Rockets",17,43
-"Harris","Dallas Mavericks",5,43
-"Harris","Denver Nuggets",3,43
-"Harris","Orlando Magic",20,41
-"Harrison","Charlotte Hornets",1,42
-"Haslem","Miami Heat",7,42
-"Hawes","Charlotte Hornets",52,42
-"Hayes","Houston Rockets",3,43
-"Hayward","Utah Jazz",9,42
-"Henderson","Portland Trail Blazers",6,44
-"Henson","Milwaukee Bucks",17,43
-"Hezonja","Orlando Magic",4,41
-"Hibbert","Los Angeles Lakers",61,44
-"Hickson","Denver Nuggets",22,43
-"Hill","Indiana Pacers",40,41
-"Holiday","Atlanta Hawks",1,41
-"Holiday","New Orleans Pelicans",8,42
-"Hollins","Memphis Grizzlies",2,43
-"Hollins","Washington Wizards",3,40
-"Hollis-Jefferson","Brooklyn Nets",6,41
-"Holmes","Philadelphia 76ers",30,39
-"Hood","Utah Jazz",8,42
-"Horford","Atlanta Hawks",54,41
-"Howard","Houston Rockets",109,43
-"Huertas","Los Angeles Lakers",4,44
-"Humphries","Washington Wizards",10,40
-"Hunter","Boston Celtics",4,39
-"Ibaka","Oklahoma City Thunder",44,44
-"Iguodala","Golden State Warriors",12,41
-"Ilyasova","Detroit Pistons",26,42
-"Ingles","Utah Jazz",2,42
-"Irving","Cleveland Cavaliers",2,36
-"Jack","Brooklyn Nets",2,41
-"Jackson","Detroit Pistons",8,42
-"James","Cleveland Cavaliers",17,36
-"Jefferson","Charlotte Hornets",50,42
-"Jefferson","Cleveland Cavaliers",4,36
-"Jenkins","Dallas Mavericks",1,43
-"Jennings","Detroit Pistons",1,42
-"Jerebko","Boston Celtics",11,39
-"Johnson","Boston Celtics",58,39
-"Johnson","Brooklyn Nets",4,41
-"Johnson","Detroit Pistons",9,42
-"Johnson","Los Angeles Clippers",8,38
-"Johnson","Miami Heat",3,42
-"Johnson","Toronto Raptors",5,41
-"Johnson","Utah Jazz",1,42
-"Jokic","Denver Nuggets",54,43
-"Jones","Cleveland Cavaliers",4,36
-"Jones","Houston Rockets",53,43
-"Jordan","Los Angeles Clippers",103,38
-"Joseph","Toronto Raptors",3,41
-"Kaminsky","Charlotte Hornets",13,42
-"Kanter","Oklahoma City Thunder",65,44
-"Kaun","Cleveland Cavaliers",2,36
-"Kelly","Los Angeles Lakers",2,44
-"Knight","Phoenix Suns",5,41
-"Korver","Atlanta Hawks",2,41
-"Koufos","Sacramento Kings",45,39
-"Lamb","Charlotte Hornets",19,42
-"Landry","Philadelphia 76ers",9,39
-"Lauvergne","Denver Nuggets",19,43
-"LaVine","Minnesota Timberwolves",4,41
-"Lawson","Houston Rockets",3,43
-"Lee","Boston Celtics",11,39
-"Lee","Memphis Grizzlies",14,43
-"Len","Phoenix Suns",36,41
-"Leonard","Portland Trail Blazers",28,44
-"Leonard","San Antonio Spurs",10,40
-"Leuer","Phoenix Suns",16,41
-"Lillard","Portland Trail Blazers",5,44
-"Lin","Charlotte Hornets",10,42
-"Livingston","Golden State Warriors",13,41
-"Lopez","Brooklyn Nets",64,41
-"Lopez","New York Knicks",99,44
-"Love","Cleveland Cavaliers",25,36
-"Lowry","Toronto Raptors",16,41
-"Lyles","Utah Jazz",32,42
-"Mahinmi","Indiana Pacers",30,41
-"Marjanovic","San Antonio Spurs",13,40
-"Martin","Minnesota Timberwolves",10,41
-"Matthews","Dallas Mavericks",9,43
-"Mayo","Milwaukee Bucks",2,43
-"Mbah a Moute","Los Angeles Clippers",18,38
-"McAdoo","Golden State Warriors",4,41
-"McCollum","Portland Trail Blazers",13,44
-"McConnell","Philadelphia 76ers",2,39
-"McDaniels","Houston Rockets",1,43
-"McDermott","Chicago Bulls",3,38
-"McGary","Oklahoma City Thunder",2,44
-"McGee","Dallas Mavericks",24,43
-"McLemore","Sacramento Kings",15,39
-"McRoberts","Miami Heat",8,42
-"Mejri","Dallas Mavericks",1,43
-"Mickey","Boston Celtics",1,39
-"Middleton","Milwaukee Bucks",13,43
-"Miles","Indiana Pacers",5,41
-"Miller","Denver Nuggets",2,43
-"Miller","Minnesota Timberwolves",1,41
-"Mills","San Antonio Spurs",2,40
-"Millsap","Atlanta Hawks",83,41
-"Mirotic","Chicago Bulls",25,38
-"Monroe","Milwaukee Bucks",34,43
-"Montero","Portland Trail Blazers",1,44
-"Moore","Chicago Bulls",3,38
-"Moreland","Sacramento Kings",1,39
-"Morris","Detroit Pistons",14,42
-"Morris","Phoenix Suns",14,41
-"Morrow","Oklahoma City Thunder",8,44
-"Motiejunas","Houston Rockets",9,43
-"Mozgov","Cleveland Cavaliers",45,36
-"Mudiay","Denver Nuggets",4,43
-"Muhammad","Minnesota Timberwolves",18,41
-"Muscala","Atlanta Hawks",17,41
-"Nance Jr.","Los Angeles Lakers",16,44
-"Napier","Orlando Magic",5,41
-"Neal","Washington Wizards",2,40
-"Nelson","Denver Nuggets",6,43
-"Nene","Washington Wizards",12,40
-"Neto","Utah Jazz",2,42
-"Nicholson","Orlando Magic",14,41
-"Noah","Chicago Bulls",37,38
-"Noel","Philadelphia 76ers",47,39
-"Nogueira","Toronto Raptors",5,41
-"Nowitzki","Dallas Mavericks",11,43
-"Nurkic","Denver Nuggets",7,43
-"O'Bryant","Milwaukee Bucks",17,43
-"O'Quinn","New York Knicks",27,44
-"Okafor","Philadelphia 76ers",70,39
-"Oladipo","Orlando Magic",10,41
-"Olynyk","Boston Celtics",14,39
-"Oubre","Washington Wizards",5,40
-"Pachulia","Dallas Mavericks",87,43
-"Papanikolaou","Denver Nuggets",1,43
-"Parker","Milwaukee Bucks",6,43
-"Parker","San Antonio Spurs",6,40
-"Parsons","Dallas Mavericks",5,43
-"Patterson","Atlanta Hawks",1,41
-"Patterson","Toronto Raptors",2,41
-"Paul","Los Angeles Clippers",5,38
-"Payne","Minnesota Timberwolves",5,41
-"Payton","Orlando Magic",10,41
-"Pekovic","Minnesota Timberwolves",3,41
-"Perkins","New Orleans Pelicans",2,42
-"Pierce","Los Angeles Clippers",7,38
-"Pleiss","Utah Jazz",5,42
-"Plumlee","Milwaukee Bucks",7,43
-"Plumlee","Portland Trail Blazers",52,44
-"Porter","Washington Wizards",29,40
-"Portis","Chicago Bulls",5,38
-"Porzingis","New York Knicks",51,44
-"Powell","Dallas Mavericks",27,43
-"Prigioni","Los Angeles Clippers",2,38
-"Prince","Minnesota Timberwolves",10,41
-"Randle","Los Angeles Lakers",42,44
-"Randolph","Memphis Grizzlies",57,43
-"Redick","Los Angeles Clippers",12,38
-"Reed","Brooklyn Nets",8,41
-"Rivers","Los Angeles Clippers",1,38
-"Roberson","Oklahoma City Thunder",9,44
-"Roberts","Charlotte Hornets",1,42
-"Robinson","Brooklyn Nets",24,41
-"Robinson","New Orleans Pelicans",1,42
-"Rondo","Sacramento Kings",5,39
-"Rose","Chicago Bulls",4,38
-"Ross","Toronto Raptors",4,41
-"Rozier","Boston Celtics",1,39
-"Rubio","Minnesota Timberwolves",1,41
-"Rush","Golden State Warriors",1,41
-"Russell","Los Angeles Lakers",9,44
-"Sacre","Los Angeles Lakers",8,44
-"Sampson","Philadelphia 76ers",6,39
-"Schroder","Atlanta Hawks",1,41
-"Scola","Toronto Raptors",19,41
-"Scott","Atlanta Hawks",25,41
-"Sefolosha","Atlanta Hawks",2,41
-"Seraphin","New York Knicks",17,44
-"Sessions","Washington Wizards",9,40
-"Shumpert","Cleveland Cavaliers",4,36
-"Simmons","San Antonio Spurs",2,40
-"Singler","Oklahoma City Thunder",5,44
-"Smith","Cleveland Cavaliers",5,36
-"Smith","Los Angeles Clippers",13,38
-"Smith","Memphis Grizzlies",1,43
-"Smith","New Orleans Pelicans",2,42
-"Smith","Orlando Magic",13,41
-"Smith","Philadelphia 76ers",1,39
-"Snell","Chicago Bulls",3,38
-"Speights","Golden State Warriors",16,41
-"Splitter","Atlanta Hawks",29,41
-"Stauskas","Philadelphia 76ers",3,39
-"Stephenson","Los Angeles Clippers",7,38
-"Stokes","Memphis Grizzlies",1,43
-"Stokes","Miami Heat",1,42
-"Stoudemire","Miami Heat",6,42
-"Stuckey","Indiana Pacers",4,41
-"Sullinger","Boston Celtics",49,39
-"Tavares","Atlanta Hawks",4,41
-"Teague","Atlanta Hawks",7,41
-"Teletovic","Phoenix Suns",8,41
-"Temple","Washington Wizards",10,40
-"Terry","Houston Rockets",8,43
-"Thomas","Boston Celtics",10,39
-"Thomas","New York Knicks",19,44
-"Thompson","Cleveland Cavaliers",67,36
-"Thompson","Golden State Warriors",21,41
-"Thompson","Philadelphia 76ers",10,39
-"Thornton","Houston Rockets",6,43
-"Tolliver","Detroit Pistons",20,42
-"Towns","Minnesota Timberwolves",47,41
-"Tucker","Phoenix Suns",21,41
-"Turner","Boston Celtics",11,39
-"Turner","Indiana Pacers",19,41
-"Udrih","Miami Heat",1,42
-"Valanciunas","Toronto Raptors",45,41
-"Varejao","Cleveland Cavaliers",9,36
-"Vasquez","Milwaukee Bucks",2,43
-"Vaughn","Milwaukee Bucks",1,43
-"Villanueva","Dallas Mavericks",8,43
-"Vonleh","Portland Trail Blazers",47,44
-"Vucevic","Orlando Magic",78,41
-"Vujacic","New York Knicks",3,44
-"Wade","Miami Heat",13,42
-"Waiters","Oklahoma City Thunder",8,44
-"Walker","Charlotte Hornets",7,42
-"Wall","Washington Wizards",5,40
-"Warren","Phoenix Suns",6,41
-"Weems","Phoenix Suns",1,41
-"West","San Antonio Spurs",39,40
-"Westbrook","Oklahoma City Thunder",9,44
-"Whiteside","Miami Heat",98,42
-"Wiggins","Minnesota Timberwolves",12,41
-"Williams","Charlotte Hornets",17,42
-"Williams","Cleveland Cavaliers",8,36
-"Williams","Dallas Mavericks",6,43
-"Williams","Los Angeles Lakers",5,44
-"Williams","New York Knicks",22,44
-"Winslow","Miami Heat",14,42
-"Withey","Utah Jazz",32,42
-"Wood","Philadelphia 76ers",8,39
-"World Peace","Los Angeles Lakers",4,44
-"Wright","Memphis Grizzlies",5,43
-"Young","Brooklyn Nets",62,41
-"Young","Los Angeles Lakers",9,44
-"Zeller","Boston Celtics",10,39
-"Zeller","Charlotte Hornets",101,42
+"player","teamName","count","countdeepkey","games"
+"Acy","Sacramento Kings",7,2,39
+"Adams","Memphis Grizzlies",1,0,43
+"Adams","Oklahoma City Thunder",59,26,44
+"Afflalo","New York Knicks",8,4,44
+"Ajinca","New Orleans Pelicans",13,7,42
+"Aldrich","Los Angeles Clippers",8,6,38
+"Aldridge","San Antonio Spurs",72,29,40
+"Allen","Indiana Pacers",31,14,41
+"Allen","Memphis Grizzlies",14,6,43
+"Aminu","Portland Trail Blazers",21,9,44
+"Amundson","New York Knicks",7,3,44
+"Andersen","Miami Heat",1,1,42
+"Anderson","Dallas Mavericks",2,1,43
+"Anderson","New Orleans Pelicans",24,5,42
+"Anderson","Sacramento Kings",2,0,39
+"Anderson","San Antonio Spurs",4,2,40
+"Antetokounmpo","Milwaukee Bucks",16,6,43
+"Anthony","Detroit Pistons",12,5,42
+"Anthony","New York Knicks",32,9,44
+"Ariza","Houston Rockets",7,3,43
+"Arthur","Denver Nuggets",26,6,43
+"Asik","New Orleans Pelicans",42,17,42
+"Augustin","Oklahoma City Thunder",2,0,44
+"Babbitt","New Orleans Pelicans",3,0,42
+"Barbosa","Golden State Warriors",2,0,41
+"Barea","Dallas Mavericks",2,1,43
+"Bargnani","Brooklyn Nets",19,6,41
+"Barnes","Golden State Warriors",8,1,41
+"Barnes","Memphis Grizzlies",17,5,43
+"Barton","Denver Nuggets",5,1,43
+"Bass","Los Angeles Lakers",30,12,44
+"Batum","Charlotte Hornets",25,11,42
+"Baynes","Detroit Pistons",72,29,42
+"Bazemore","Atlanta Hawks",3,0,41
+"Beal","Washington Wizards",5,3,40
+"Belinelli","Sacramento Kings",9,4,39
+"Beverley","Houston Rockets",10,3,43
+"Biyombo","Toronto Raptors",58,30,41
+"Bjelica","Minnesota Timberwolves",10,8,41
+"Black","Los Angeles Lakers",8,4,44
+"Blair","Washington Wizards",14,6,40
+"Blake","Detroit Pistons",1,0,42
+"Bledsoe","Phoenix Suns",6,3,41
+"Bogdanovic","Brooklyn Nets",3,1,41
+"Bogut","Golden State Warriors",32,14,41
+"Bonner","San Antonio Spurs",5,2,40
+"Booker","Phoenix Suns",2,1,41
+"Booker","Utah Jazz",79,35,42
+"Bosh","Miami Heat",33,14,42
+"Bradley","Boston Celtics",9,0,39
+"Brewer","Houston Rockets",10,5,43
+"Brooks","Chicago Bulls",3,0,38
+"Brown","Los Angeles Lakers",4,1,44
+"Bryant","Los Angeles Lakers",13,5,44
+"Budinger","Indiana Pacers",2,0,41
+"Bullock","Detroit Pistons",6,3,42
+"Burke","Utah Jazz",5,0,42
+"Burks","Utah Jazz",1,1,42
+"Butler","Chicago Bulls",14,4,38
+"Butler","San Antonio Spurs",2,1,40
+"Calderon","New York Knicks",4,2,44
+"Caldwell-Pope","Detroit Pistons",25,12,42
+"Canaan","Philadelphia 76ers",6,0,39
+"Capela","Houston Rockets",74,38,43
+"Carroll","Toronto Raptors",8,4,41
+"Carter","Memphis Grizzlies",9,6,43
+"Carter-Williams","Milwaukee Bucks",2,0,43
+"Casspi","Sacramento Kings",11,7,39
+"Cauley-Stein","Sacramento Kings",25,6,39
+"Chalmers","Memphis Grizzlies",2,0,43
+"Chandler","Phoenix Suns",57,33,41
+"Clark","Golden State Warriors",3,2,41
+"Clarkson","Los Angeles Lakers",21,10,44
+"Cole","New Orleans Pelicans",2,0,42
+"Collison","Oklahoma City Thunder",25,14,44
+"Collison","Sacramento Kings",5,2,39
+"Conley","Memphis Grizzlies",5,3,43
+"Copeland","Milwaukee Bucks",1,0,43
+"Cousins","Sacramento Kings",38,10,39
+"Covington","Philadelphia 76ers",11,6,39
+"Crabbe","Portland Trail Blazers",9,4,44
+"Crawford","Los Angeles Clippers",9,7,38
+"Crowder","Boston Celtics",4,0,39
+"Cunningham","New Orleans Pelicans",5,1,42
+"Curry","Golden State Warriors",15,10,41
+"Curry","Sacramento Kings",1,1,39
+"Daniels","Charlotte Hornets",4,0,42
+"Davis","New Orleans Pelicans",39,15,42
+"Davis","Portland Trail Blazers",94,55,44
+"Dedmon","Orlando Magic",14,3,41
+"Dellavedova","Cleveland Cavaliers",15,9,36
+"Deng","Miami Heat",8,0,42
+"DeRozan","Toronto Raptors",10,4,41
+"Diaw","San Antonio Spurs",32,16,40
+"Dieng","Minnesota Timberwolves",43,18,41
+"Douglas","New Orleans Pelicans",3,2,42
+"Dragic","Miami Heat",6,1,42
+"Drummond","Detroit Pistons",144,70,42
+"Dudley","Washington Wizards",9,4,40
+"Duncan","San Antonio Spurs",49,16,40
+"Durant","Oklahoma City Thunder",19,8,44
+"Eddie","Washington Wizards",2,1,40
+"Ellington","Brooklyn Nets",6,3,41
+"Ellis","Indiana Pacers",4,3,41
+"Evans","Dallas Mavericks",7,2,43
+"Evans","New Orleans Pelicans",6,3,42
+"Ezeli","Golden State Warriors",45,25,41
+"Faried","Denver Nuggets",73,30,43
+"Favors","Utah Jazz",38,16,42
+"Felton","Dallas Mavericks",10,6,43
+"Fournier","Orlando Magic",15,7,41
+"Foye","Denver Nuggets",2,1,43
+"Frazier","Portland Trail Blazers",7,3,44
+"Frye","Orlando Magic",27,11,41
+"Gallinari","Denver Nuggets",23,6,43
+"Galloway","New York Knicks",6,2,44
+"Garnett","Minnesota Timberwolves",9,3,41
+"Gasol","Chicago Bulls",30,12,38
+"Gasol","Memphis Grizzlies",41,17,43
+"Gay","Sacramento Kings",24,13,39
+"Gee","New Orleans Pelicans",12,7,42
+"George","Indiana Pacers",11,2,41
+"Gibson","Chicago Bulls",54,16,38
+"Ginobili","San Antonio Spurs",5,3,40
+"Gobert","Utah Jazz",34,16,42
+"Gooden","Washington Wizards",2,1,40
+"Goodwin","Phoenix Suns",2,2,41
+"Gordon","New Orleans Pelicans",8,4,42
+"Gordon","Orlando Magic",30,9,41
+"Gortat","Washington Wizards",61,27,40
+"Grant","New York Knicks",6,3,44
+"Grant","Philadelphia 76ers",19,5,39
+"Green","Golden State Warriors",26,7,41
+"Green","Memphis Grizzlies",34,18,43
+"Green","Miami Heat",2,1,42
+"Green","San Antonio Spurs",12,5,40
+"Griffin","Los Angeles Clippers",20,8,38
+"Hairston","Charlotte Hornets",12,7,42
+"Hansbrough","Charlotte Hornets",5,3,42
+"Harden","Houston Rockets",8,4,43
+"Harkless","Portland Trail Blazers",13,7,44
+"Harrell","Houston Rockets",17,7,43
+"Harris","Dallas Mavericks",5,2,43
+"Harris","Denver Nuggets",3,1,43
+"Harris","Orlando Magic",20,8,41
+"Harrison","Charlotte Hornets",1,0,42
+"Haslem","Miami Heat",7,6,42
+"Hawes","Charlotte Hornets",52,19,42
+"Hayes","Houston Rockets",3,0,43
+"Hayward","Utah Jazz",9,3,42
+"Henderson","Portland Trail Blazers",6,1,44
+"Henson","Milwaukee Bucks",17,11,43
+"Hezonja","Orlando Magic",4,1,41
+"Hibbert","Los Angeles Lakers",61,36,44
+"Hickson","Denver Nuggets",22,11,43
+"Hill","Indiana Pacers",40,17,41
+"Holiday","Atlanta Hawks",1,0,41
+"Holiday","New Orleans Pelicans",8,7,42
+"Hollins","Memphis Grizzlies",2,0,43
+"Hollins","Washington Wizards",3,2,40
+"Hollis-Jefferson","Brooklyn Nets",6,2,41
+"Holmes","Philadelphia 76ers",30,12,39
+"Hood","Utah Jazz",8,3,42
+"Horford","Atlanta Hawks",54,23,41
+"Howard","Houston Rockets",109,52,43
+"Huertas","Los Angeles Lakers",4,2,44
+"Humphries","Washington Wizards",10,6,40
+"Hunter","Boston Celtics",4,2,39
+"Ibaka","Oklahoma City Thunder",44,29,44
+"Iguodala","Golden State Warriors",12,6,41
+"Ilyasova","Detroit Pistons",26,12,42
+"Ingles","Utah Jazz",2,2,42
+"Irving","Cleveland Cavaliers",2,1,36
+"Jack","Brooklyn Nets",2,2,41
+"Jackson","Detroit Pistons",8,5,42
+"James","Cleveland Cavaliers",17,5,36
+"Jefferson","Charlotte Hornets",50,14,42
+"Jefferson","Cleveland Cavaliers",4,2,36
+"Jenkins","Dallas Mavericks",1,1,43
+"Jennings","Detroit Pistons",1,1,42
+"Jerebko","Boston Celtics",11,4,39
+"Johnson","Boston Celtics",58,26,39
+"Johnson","Brooklyn Nets",4,3,41
+"Johnson","Detroit Pistons",9,2,42
+"Johnson","Los Angeles Clippers",8,1,38
+"Johnson","Miami Heat",3,2,42
+"Johnson","Toronto Raptors",5,3,41
+"Johnson","Utah Jazz",1,0,42
+"Jokic","Denver Nuggets",54,29,43
+"Jones","Cleveland Cavaliers",4,0,36
+"Jones","Houston Rockets",53,22,43
+"Jordan","Los Angeles Clippers",103,49,38
+"Joseph","Toronto Raptors",3,1,41
+"Kaminsky","Charlotte Hornets",13,5,42
+"Kanter","Oklahoma City Thunder",65,31,44
+"Kaun","Cleveland Cavaliers",2,0,36
+"Kelly","Los Angeles Lakers",2,1,44
+"Knight","Phoenix Suns",5,3,41
+"Korver","Atlanta Hawks",2,0,41
+"Koufos","Sacramento Kings",45,20,39
+"Lamb","Charlotte Hornets",19,11,42
+"Landry","Philadelphia 76ers",9,2,39
+"Lauvergne","Denver Nuggets",19,8,43
+"LaVine","Minnesota Timberwolves",4,1,41
+"Lawson","Houston Rockets",3,2,43
+"Lee","Boston Celtics",11,5,39
+"Lee","Memphis Grizzlies",14,4,43
+"Len","Phoenix Suns",36,12,41
+"Leonard","Portland Trail Blazers",28,17,44
+"Leonard","San Antonio Spurs",10,4,40
+"Leuer","Phoenix Suns",16,8,41
+"Lillard","Portland Trail Blazers",5,2,44
+"Lin","Charlotte Hornets",10,4,42
+"Livingston","Golden State Warriors",13,5,41
+"Lopez","Brooklyn Nets",64,32,41
+"Lopez","New York Knicks",99,43,44
+"Love","Cleveland Cavaliers",25,11,36
+"Lowry","Toronto Raptors",16,5,41
+"Lyles","Utah Jazz",32,4,42
+"Mahinmi","Indiana Pacers",30,11,41
+"Marjanovic","San Antonio Spurs",13,5,40
+"Martin","Minnesota Timberwolves",10,3,41
+"Matthews","Dallas Mavericks",9,5,43
+"Mayo","Milwaukee Bucks",2,2,43
+"Mbah a Moute","Los Angeles Clippers",18,6,38
+"McAdoo","Golden State Warriors",4,3,41
+"McCollum","Portland Trail Blazers",13,6,44
+"McConnell","Philadelphia 76ers",2,0,39
+"McDaniels","Houston Rockets",1,1,43
+"McDermott","Chicago Bulls",3,0,38
+"McGary","Oklahoma City Thunder",2,1,44
+"McGee","Dallas Mavericks",24,8,43
+"McLemore","Sacramento Kings",15,7,39
+"McRoberts","Miami Heat",8,3,42
+"Mejri","Dallas Mavericks",1,1,43
+"Mickey","Boston Celtics",1,1,39
+"Middleton","Milwaukee Bucks",13,6,43
+"Miles","Indiana Pacers",5,4,41
+"Miller","Denver Nuggets",2,1,43
+"Miller","Minnesota Timberwolves",1,1,41
+"Mills","San Antonio Spurs",2,0,40
+"Millsap","Atlanta Hawks",83,36,41
+"Mirotic","Chicago Bulls",25,8,38
+"Monroe","Milwaukee Bucks",34,14,43
+"Montero","Portland Trail Blazers",1,1,44
+"Moore","Chicago Bulls",3,1,38
+"Moreland","Sacramento Kings",1,0,39
+"Morris","Detroit Pistons",14,5,42
+"Morris","Phoenix Suns",14,4,41
+"Morrow","Oklahoma City Thunder",8,3,44
+"Motiejunas","Houston Rockets",9,4,43
+"Mozgov","Cleveland Cavaliers",45,21,36
+"Mudiay","Denver Nuggets",4,2,43
+"Muhammad","Minnesota Timberwolves",18,8,41
+"Muscala","Atlanta Hawks",17,6,41
+"Nance Jr.","Los Angeles Lakers",16,4,44
+"Napier","Orlando Magic",5,3,41
+"Neal","Washington Wizards",2,1,40
+"Nelson","Denver Nuggets",6,3,43
+"Nene","Washington Wizards",12,6,40
+"Neto","Utah Jazz",2,2,42
+"Nicholson","Orlando Magic",14,4,41
+"Noah","Chicago Bulls",37,19,38
+"Noel","Philadelphia 76ers",47,21,39
+"Nogueira","Toronto Raptors",5,3,41
+"Nowitzki","Dallas Mavericks",11,4,43
+"Nurkic","Denver Nuggets",7,4,43
+"O'Bryant","Milwaukee Bucks",17,7,43
+"O'Quinn","New York Knicks",27,9,44
+"Okafor","Philadelphia 76ers",70,27,39
+"Oladipo","Orlando Magic",10,5,41
+"Olynyk","Boston Celtics",14,9,39
+"Oubre","Washington Wizards",5,3,40
+"Pachulia","Dallas Mavericks",87,47,43
+"Papanikolaou","Denver Nuggets",1,0,43
+"Parker","Milwaukee Bucks",6,2,43
+"Parker","San Antonio Spurs",6,3,40
+"Parsons","Dallas Mavericks",5,1,43
+"Patterson","Atlanta Hawks",1,0,41
+"Patterson","Toronto Raptors",2,2,41
+"Paul","Los Angeles Clippers",5,3,38
+"Payne","Minnesota Timberwolves",5,3,41
+"Payton","Orlando Magic",10,4,41
+"Pekovic","Minnesota Timberwolves",3,2,41
+"Perkins","New Orleans Pelicans",2,2,42
+"Pierce","Los Angeles Clippers",7,2,38
+"Pleiss","Utah Jazz",5,2,42
+"Plumlee","Milwaukee Bucks",7,4,43
+"Plumlee","Portland Trail Blazers",52,21,44
+"Porter","Washington Wizards",29,10,40
+"Portis","Chicago Bulls",5,2,38
+"Porzingis","New York Knicks",51,22,44
+"Powell","Dallas Mavericks",27,7,43
+"Prigioni","Los Angeles Clippers",2,0,38
+"Prince","Minnesota Timberwolves",10,2,41
+"Randle","Los Angeles Lakers",42,19,44
+"Randolph","Memphis Grizzlies",57,24,43
+"Redick","Los Angeles Clippers",12,5,38
+"Reed","Brooklyn Nets",8,3,41
+"Rivers","Los Angeles Clippers",1,0,38
+"Roberson","Oklahoma City Thunder",9,5,44
+"Roberts","Charlotte Hornets",1,1,42
+"Robinson","Brooklyn Nets",24,15,41
+"Robinson","New Orleans Pelicans",1,1,42
+"Rondo","Sacramento Kings",5,2,39
+"Rose","Chicago Bulls",4,2,38
+"Ross","Toronto Raptors",4,0,41
+"Rozier","Boston Celtics",1,0,39
+"Rubio","Minnesota Timberwolves",1,1,41
+"Rush","Golden State Warriors",1,1,41
+"Russell","Los Angeles Lakers",9,2,44
+"Sacre","Los Angeles Lakers",8,3,44
+"Sampson","Philadelphia 76ers",6,2,39
+"Schroder","Atlanta Hawks",1,1,41
+"Scola","Toronto Raptors",19,9,41
+"Scott","Atlanta Hawks",25,9,41
+"Sefolosha","Atlanta Hawks",2,1,41
+"Seraphin","New York Knicks",17,10,44
+"Sessions","Washington Wizards",9,5,40
+"Shumpert","Cleveland Cavaliers",4,4,36
+"Simmons","San Antonio Spurs",2,1,40
+"Singler","Oklahoma City Thunder",5,3,44
+"Smith","Cleveland Cavaliers",5,3,36
+"Smith","Los Angeles Clippers",13,6,38
+"Smith","Memphis Grizzlies",1,0,43
+"Smith","New Orleans Pelicans",2,0,42
+"Smith","Orlando Magic",13,1,41
+"Smith","Philadelphia 76ers",1,0,39
+"Snell","Chicago Bulls",3,0,38
+"Speights","Golden State Warriors",16,7,41
+"Splitter","Atlanta Hawks",29,8,41
+"Stauskas","Philadelphia 76ers",3,2,39
+"Stephenson","Los Angeles Clippers",7,5,38
+"Stokes","Memphis Grizzlies",1,0,43
+"Stokes","Miami Heat",1,0,42
+"Stoudemire","Miami Heat",6,2,42
+"Stuckey","Indiana Pacers",4,1,41
+"Sullinger","Boston Celtics",49,22,39
+"Tavares","Atlanta Hawks",4,3,41
+"Teague","Atlanta Hawks",7,3,41
+"Teletovic","Phoenix Suns",8,4,41
+"Temple","Washington Wizards",10,2,40
+"Terry","Houston Rockets",8,4,43
+"Thomas","Boston Celtics",10,2,39
+"Thomas","New York Knicks",19,6,44
+"Thompson","Cleveland Cavaliers",67,34,36
+"Thompson","Golden State Warriors",21,10,41
+"Thompson","Philadelphia 76ers",10,5,39
+"Thornton","Houston Rockets",6,4,43
+"Tolliver","Detroit Pistons",20,15,42
+"Towns","Minnesota Timberwolves",47,18,41
+"Tucker","Phoenix Suns",21,10,41
+"Turner","Boston Celtics",11,4,39
+"Turner","Indiana Pacers",19,6,41
+"Udrih","Miami Heat",1,1,42
+"Valanciunas","Toronto Raptors",45,23,41
+"Varejao","Cleveland Cavaliers",9,2,36
+"Vasquez","Milwaukee Bucks",2,0,43
+"Vaughn","Milwaukee Bucks",1,1,43
+"Villanueva","Dallas Mavericks",8,6,43
+"Vonleh","Portland Trail Blazers",47,22,44
+"Vucevic","Orlando Magic",78,28,41
+"Vujacic","New York Knicks",3,3,44
+"Wade","Miami Heat",13,5,42
+"Waiters","Oklahoma City Thunder",8,5,44
+"Walker","Charlotte Hornets",7,2,42
+"Wall","Washington Wizards",5,2,40
+"Warren","Phoenix Suns",6,3,41
+"Weems","Phoenix Suns",1,0,41
+"West","San Antonio Spurs",39,13,40
+"Westbrook","Oklahoma City Thunder",9,6,44
+"Whiteside","Miami Heat",98,47,42
+"Wiggins","Minnesota Timberwolves",12,8,41
+"Williams","Charlotte Hornets",17,7,42
+"Williams","Cleveland Cavaliers",8,4,36
+"Williams","Dallas Mavericks",6,2,43
+"Williams","Los Angeles Lakers",5,1,44
+"Williams","New York Knicks",22,7,44
+"Winslow","Miami Heat",14,8,42
+"Withey","Utah Jazz",32,14,42
+"Wood","Philadelphia 76ers",8,5,39
+"World Peace","Los Angeles Lakers",4,2,44
+"Wright","Memphis Grizzlies",5,4,43
+"Young","Brooklyn Nets",62,14,41
+"Young","Los Angeles Lakers",9,5,44
+"Zeller","Boston Celtics",10,2,39
+"Zeller","Charlotte Hornets",101,39,42
